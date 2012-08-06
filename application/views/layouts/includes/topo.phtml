@@ -1,0 +1,72 @@
+<div id="header">
+
+	<div class="container">
+
+		<h1><a href="default.htm">Gerador de Planilhas</a></h1>
+
+		<div id="info">
+
+			<a href="javascript:;" id="info-trigger">
+				<i class="icon-cog"></i>
+			</a>
+
+			<div id="info-menu">
+
+			</div> <!-- /#info-menu -->
+
+		</div> <!-- /#info -->
+
+	</div> <!-- /.container -->
+
+</div> <!-- /#header -->
+
+
+<div id="nav">
+
+	<div class="container">
+
+		<a href="javascript:;" class="btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+			<i class="icon-reorder"></i>
+		</a>
+
+		<div class="nav-collapse">
+
+			<ul class="nav">
+				<?php
+				$request = Zend_Controller_Front::getInstance()->getRequest();
+				$controller = $request->getControllerName();
+				$action = $request->getActionName();
+				?>
+				<li class="nav-icon <?php print ($action == "index" && $controller == "index" ? 'active' : ''); ?>">
+					<a href="<?php print $this->url(array("controller" => 'index'), null, true) ?>">
+						<i class="icon-home"></i>
+						Página Inicial
+					</a>
+				</li>
+
+				<li class="nav-icon <?php print ($action == "index" && $controller == "os" ? 'active' : ''); ?>">
+					<a href="<?php print $this->url(array("controller" => 'os'), null, true) ?>">
+						<i class="icon-wrench"></i>
+						Ordem de Serviço
+					</a>
+				</li>
+
+				<li class="nav-icon <?php print ($controller == "fatura" ? 'active' : ''); ?>">
+					<a href="<?php print $this->url(array('controller' => 'fatura'), null, true); ?>">
+						<i class="icon-file"></i>
+						Fatura
+					</a>
+				</li>
+			</ul>
+
+		</div> <!-- /.nav-collapse -->
+
+	</div> <!-- /.container -->
+
+</div> <!-- /#nav -->
+
+<div id="content">
+
+	<div class="container">
+
+		<div class="row">

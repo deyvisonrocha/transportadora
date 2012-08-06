@@ -1,0 +1,320 @@
+<script type="text/javascript">
+$(function () {
+	linha = 2;
+	$(".adicionarLinha").live('click', function () {
+		var estrutura  	= "<tr rel='"+linha+"'>";
+		estrutura 		+= "<td><div align='center'>"+linha+"</div></td>";
+		estrutura		+= "<td><input class='input-xxlarge' id='descricao_servico_"+linha+"' size='16' type='text' name='servicos[descricao_servico][]'></td>";
+		estrutura		+= "<td><input class='input-small' id='data_servico_"+linha+"' size='16' type='text' name='servicos[data_servico][]'></td>";
+		estrutura		+= "	<td><input class='input-small' id='nota_servico_"+linha+"' size='16' type='text' name='servicos[nota_servico][]'></td>";
+		estrutura		+= "	<td>";
+		estrutura		+= "		<div class='input-prepend input-append'>";
+		estrutura		+= "			<span class='add-on'>R$</span><input class='input-small' id='valor_servico_"+linha+"' size='16' type='text' name='servicos[valor_servico][]'>";
+		estrutura		+= "		</div>";
+		estrutura		+= "	</td>";
+		estrutura		+= "	<td>";
+		estrutura		+= "		<button type='button' class='btn btn-primary btn-mini adicionarLinha'>";
+		estrutura		+= "			<i class='icon-plus'></i>";
+		estrutura		+= "		</button>";
+		estrutura		+= "		<button type='button' class='btn btn-danger btn-mini removerLinha'>";
+		estrutura		+= "			<i class='icon-remove'></i>";
+		estrutura		+= "		</button>";
+		estrutura		+= "	</td>";
+		estrutura		+= "</tr>";
+		linha += 1;
+		// jogar no html
+		$("#listaServicos").append(estrutura);
+		$("input[name*=valor], input[name*=desconto]").setMask('decimal', {placeholder: " "});
+		$("input[name*=data]").setMask('date', {placeholder: " "}).datepicker();;
+		return true;
+	});
+	$(".removerLinha").live('click', function () {
+		var linha_atual = $(this).parent().parent();
+		var valor_linha = linha_atual.attr('rel');
+		if (valor_linha != 1) {
+			linha_atual.remove();
+		} else {
+			// limpar campos
+			linha_atual.find('input[type=text]').val('');
+		}
+	});
+	// item a ser atualizado ao digitar valor
+	//valorTotalServicos
+	$("input[name*=valor_servico]").live('blur',function () {
+		$("#valorTotalServicos").text(somarValores());
+	});
+
+	function somarValores() {
+		var valor = 0;
+		$("input[name*=valor_servico]").each( function (i) {
+			var valor_formatado = $(this).val().replace('.','');
+			valor_formatado = valor_formatado.replace('.','');
+			valor_formatado = valor_formatado.replace(',','.');
+			valor = eval(parseFloat(valor_formatado) + valor);
+		});
+		valor = "R$ " + moeda(valor,2,',','.') ;
+		return valor;
+	}
+
+	// formata os campos data
+	$("input[name*=data]").setMask('date', {placeholder: " "}).datepicker();;
+
+	// dados da fatura
+	$("input[name*=valor], input[name*=desconto]").setMask('decimal', {placeholder: " "});
+	// dados do sacado
+	$("#cep_sacado").mask('99.999-999');
+	/*$("#cnpj_cpf_sacado").keypress(function () {
+		if ($(this).val().length == 11) {
+			$("#cnpj_cpf_sacado").mask('000.000.000-00');
+		} else {
+			$("#cnpj_cpf_sacado").mask('00.000.000/0000-00');
+		}
+	});*/
+
+});
+
+function gerarFatura() {
+	/*document.getElementById('formulario-fatura').action = 'imprimir_fatura.php';
+	document.getElementById('formulario-fatura').target = '_blank';
+	document.getElementById('formulario-fatura').submit();*/
+}
+
+
+</script>
+<form action="<?php print $this->form->getAction();?>" id="formulario-fatura" class="form-horizontal" novalidate="novalidate" method="<?php print $this->form->getMethod();?>">
+	<div class="span6">
+		<div id="validation" class="widget highlight widget-form">
+			<div class="widget-header">
+				<h3>
+					<i class="icon-pencil"></i>
+					Dados de Fatura
+			    </h3>
+			</div>
+			<div class="widget-content">
+				<fieldset>
+					<div class="control-group">
+						<label class="control-label" for="valor_fatura">Valor Fatura</label>
+						<div class="controls">
+							<div class="input-prepend input-append">
+								<span class="add-on">R$</span><?php print $this->form->valor_fatura; ?>
+								<!-- <input class="span2 input-medium" id="valor_fatura" type="text" name="valor_fatura"/> -->
+							</div>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="numero_fatura">Número da Fatura</label>
+						<div class="controls">
+							<div class="input-prepend input-append">
+								<span class="add-on">Nº</span><?php print $this->form->numero_fatura; ?>
+							</div>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="valor_duplicata">Valor Duplicata</label>
+						<div class="controls">
+							<div class="input-prepend input-append">
+								<span class="add-on">R$</span><?php print $this->form->valor_duplicata; ?>
+							</div>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="numero_duplicata">Número da Duplicata</label>
+						<div class="controls">
+							<div class="input-prepend input-append">
+								<span class="add-on">Nº</span><?php print $this->form->numero_duplicata; ?>
+							</div>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="data_vencimento">Data de Vencimento</label>
+						<div class="controls">
+							<?php print $this->form->data_vencimento; ?>
+							<span class="help-inline">DD/MM/YYYY</span>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="desconto">Desconto De</label>
+						<div class="controls">
+							<div class="input-prepend input-append">
+								<span class="add-on">R$</span><?php print $this->form->desconto; ?>
+							</div>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="data_pagamento">Pagamento Até</label>
+						<div class="controls">
+							<?php print $this->form->data_pagamento; ?>
+							<span class="help-inline">DD/MM/YYYY</span>
+						</div>
+					</div>
+
+
+					<div class="control-group">
+						<label class="control-label" for="condicoes_especiais">Condições Especiais</label>
+						<div class="controls">
+							<?php print $this->form->condicoes_especiais; ?>
+						</div>
+					</div>
+				</fieldset>
+			</div>
+		</div>
+	</div>
+
+	<div class="span6">
+		<div id="validation" class="widget highlight widget-form">
+			<div class="widget-header">
+				<h3>
+					<i class="icon-user"></i>
+					Dados do Sacado
+			    </h3>
+			</div>
+			<div class="widget-content">
+				<fieldset>
+					<div class="control-group">
+						<label class="control-label" for="nome_sacado">Nome do Sacado</label>
+						<div class="controls">
+							<?php print $this->form->nome_sacado; ?>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="endereco_sacado">Endereço</label>
+						<div class="controls">
+							<?php print $this->form->endereco_sacado; ?>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="municipio_sacado">Município</label>
+						<div class="controls">
+							<?php print $this->form->municipio_sacado; ?>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="estado_sacado">Estado</label>
+						<div class="controls">
+							<?php print $this->form->estado_sacado; ?>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="cep_sacado">CEP</label>
+						<div class="controls">
+							<?php print $this->form->cep_sacado; ?>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="praca_pagamento_sacado">Praça de Pagamento</label>
+						<div class="controls">
+							<?php print $this->form->praca_pagamento_sacado; ?>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="cnpj_cpf_sacado">C.N.P.J./C.P.F.</label>
+						<div class="controls">
+							<?php print $this->form->cnpj_cpf_sacado; ?>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="inscricao_estadual_sacado">Inscrição Estadual</label>
+						<div class="controls">
+							<?php print $this->form->inscricao_estadual_sacado; ?>
+						</div>
+					</div>
+				</fieldset>
+			</div> <!-- /widget-content -->
+		</div>
+	</div>
+
+	<div class="span12">
+		<div class="widget widget-table" align='center'>
+			<div class="widget-header">
+				<h3>
+					<i class="icon-list-alt"></i>
+					Itens da Fatura
+			    </h3>
+			</div>
+			<div class="widget-content">
+				<table class="table table-bordered table-striped">
+					<thead>
+						<tr>
+							<th width="3%"><div align='center'>#</div></th>
+							<th width="45%">Serviço Executado</th>
+							<th width="10%">Data</th>
+							<th width="15%">Nota Fiscal</th>
+							<th width="14%">Valor</th>
+							<th width="8%">Ação</th>
+						</tr>
+					</thead>
+					<tbody id='listaServicos'>
+						<tr rel='1'>
+							<td><div align='center'>1</div></td>
+							<td>
+								<input type="text" name="servicos[descricao_servico][]" id="descricao_servico_1" value="" class="input-xxlarge" size="16"/>
+							</td>
+							<td>
+								<input type="text" name="servicos[data_servico][]" id="data_servico_1" value="" class="input-small" size="16"/>
+							</td>
+							<td>
+								<input type="text" name="servicos[nota_servico][]" id="nota_servico_1" value="" class="input-small" size="16"/>
+							</td>
+							<td>
+								<div class="input-prepend input-append">
+									<span class="add-on">R$</span><input type="text" name="servicos[valor_servico][]" id="valor_servico_1" value="" class="input-small" size="16"/>
+								</div>
+							</td>
+							<td>
+								<button type="button" class="btn btn-primary btn-mini adicionarLinha">
+									<i class="icon-plus"></i>
+								</button>
+								<button type="button" class="btn btn-danger btn-mini removerLinha">
+									<i class="icon-remove"></i>
+								</button>
+							</td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr>
+							<td></td>
+							<td></td>
+							<td colspan='2'><div align='right'>Valor Total</div></td>
+							<td><div align='right'><span id="valorTotalServicos"></span></div></td>
+							<td></td>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<div class="span12">
+		<div class="widget" align='center'>
+			<div class="widget-header">
+				<h3>
+					<i class="icon-user"></i>
+					Ação
+			    </h3>
+			</div>
+			<div class="widget-content">
+				<button type="submit" class="btn btn-primary btn-large" onClick='gerarFatura();'>
+					<i class="icon-file"></i>
+					Gerar Fatura
+				</button>
+				<button type="submit" class="btn btn-secondary btn-large gerarDuplicata">
+					<i class="icon-file"></i>
+					Gerar Duplicata
+				</button>
+				<button type="reset" class="btn btn-large">
+					<i class="icon-remove"></i>
+					Cancelar
+				</button>
+			</div>
+		</div>
+	</div>
+</form>

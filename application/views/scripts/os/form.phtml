@@ -1,0 +1,235 @@
+<form action="imprimir_fatura.php" id="formulario-fatura" class="form-horizontal" novalidate="novalidate" method="post">
+	<div class="span6">
+		<div id="validation" class="widget highlight widget-form">
+			<div class="widget-header">
+				<h3>
+					<i class="icon-pencil"></i>
+					Dados de Fatura
+			    </h3>
+			</div>
+			<div class="widget-content">
+				<fieldset>
+					<div class="control-group">
+						<label class="control-label" for="valor_fatura">Valor Fatura</label>
+						<div class="controls">
+							<div class="input-prepend input-append">
+								<span class="add-on">R$</span>
+								<input class="span2 input-medium" id="valor_fatura" type="text" name="valor_fatura"/>
+							</div>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="numero_fatura">Número da Fatura</label>
+						<div class="controls">
+							<div class="input-prepend input-append">
+								<span class="add-on">Nº</span>
+								<input class="span2 input-medium" id="numero_fatura" size="16" type="text" name="numero_fatura">
+							</div>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="valor_duplicata">Valor Duplicata</label>
+						<div class="controls">
+							<div class="input-prepend input-append">
+								<span class="add-on">R$</span>
+								<input class="span2 input-medium" id="valor_duplicata" type="text" name="valor_duplicata"/>
+							</div>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="numero_duplicata">Número da Duplicata</label>
+						<div class="controls">
+							<div class="input-prepend input-append">
+								<span class="add-on">Nº</span>
+								<input class="span2 input-medium" id="numero_duplicata" size="16" type="text" name="numero_duplicata">
+							</div>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="data_vencimento">Data de Vencimento</label>
+						<div class="controls">
+							<input class="input-small" id="data_vencimento" size="16" type="text" name="data_vencimento">
+							<span class="help-inline">DD/MM/YYYY</span>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="desconto">Desconto De</label>
+						<div class="controls">
+							<div class="input-prepend input-append">
+								<span class="add-on">R$</span>
+								<input class="span2 input-large" id="desconto" size="16" type="text" name="desconto">
+							</div>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="data_pagamento">Pagamento Até</label>
+						<div class="controls">
+							<input class="input-small" id="data_pagamento" size="16" type="text" name="data_pagamento">
+							<span class="help-inline">DD/MM/YYYY</span>
+						</div>
+					</div>
+
+
+					<div class="control-group">
+						<label class="control-label" for="condicoes_especiais">Condições Especiais</label>
+						<div class="controls">
+							<input class="input-xlarge" id="condicoes_especiais" size="16" type="text" name="condicoes_especiais">
+						</div>
+					</div>
+				</fieldset>
+			</div>
+		</div>
+	</div>
+
+	<div class="span6">
+		<div id="validation" class="widget highlight widget-form">
+			<div class="widget-header">
+				<h3>
+					<i class="icon-user"></i>
+					Dados do Sacado
+			    </h3>
+			</div>
+			<div class="widget-content">
+				<fieldset>
+					<div class="control-group">
+						<label class="control-label" for="nome_sacado">Nome do Sacado</label>
+						<div class="controls">
+							<input class="input-xlarge" id="nome_sacado" size="16" type="text" name="nome_sacado">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="endereco_sacado">Endereço</label>
+						<div class="controls">
+							<input class="input-xlarge" id="endereco_sacado" size="16" type="text" name="endereco_sacado">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="municipio_sacado">Município</label>
+						<div class="controls">
+							<input class="input-medium" id="municipio_sacado" size="16" type="text" name="municipio_sacado">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="estado_sacado">Estado</label>
+						<div class="controls">
+							<input class="input-medium" id="estado_sacado" size="16" type="text" name="estado_sacado">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="cep_sacado">CEP</label>
+						<div class="controls">
+							<input class="input-small" id="cep_sacado" size="16" type="text" name="cep_sacado">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="praca_pagamento_sacado">Praça de Pagamento</label>
+						<div class="controls">
+							<input class="input-xlarge" id="praca_pagamento_sacado" size="16" type="text" name="praca_pagamento_sacado">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="cnpj_cpf_sacado">C.N.P.J./C.P.F.</label>
+						<div class="controls">
+							<input class="input-large" id="cnpj_cpf_sacado" size="16" type="text" name="cnpj_cpf_sacado">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="inscricao_estadual_sacado">Inscrição Estadual</label>
+						<div class="controls">
+							<input class="input-medium" id="inscricao_estadual_sacado" size="16" type="text" name="inscricao_estadual_sacado">
+						</div>
+					</div>
+				</fieldset>
+			</div> <!-- /widget-content -->
+		</div>
+	</div>
+
+	<div class="span12">
+		<div class="widget widget-table" align='center'>
+			<div class="widget-header">
+				<h3>
+					<i class="icon-list-alt"></i>
+					Itens da Fatura
+			    </h3>
+			</div>
+			<div class="widget-content">
+				<table class="table table-bordered table-striped">
+					<thead>
+						<tr>
+							<th width="3%"><div align='center'>#</div></th>
+							<th width="45%">Serviço Executado</th>
+							<th width="10%">Data</th>
+							<th width="15%">Nota Fiscal</th>
+							<th width="14%">Valor</th>
+							<th width="8%">Ação</th>
+						</tr>
+					</thead>
+					<tbody id='listaServicos'>
+						<tr rel='1'>
+							<td><div align='center'>1</div></td>
+							<td><input class="input-xxlarge" id="descricao_servico_1" size="16" type="text" name="descricao_servico[]"></td>
+							<td><input class="input-small" id="data_servico_1" size="16" type="text" name="data_servico[]"></td>
+							<td><input class="input-small" id="nota_servico_1" size="16" type="text" name="nota_servico[]"></td>
+							<td>
+								<div class="input-prepend input-append">
+									<span class="add-on">R$</span><input class="input-small" id="valor_servico_1" size="16" type="text" name="valor_servico[]">
+								</div>
+							</td>
+							<td>
+								<button type="button" class="btn btn-primary btn-mini adicionarLinha">
+									<i class="icon-plus"></i>
+								</button>
+								<button type="button" class="btn btn-danger btn-mini removerLinha">
+									<i class="icon-remove"></i>
+								</button>
+							</td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr>
+							<td></td>
+							<td></td>
+							<td colspan='2'><div align='right'>Valor Total</div></td>
+							<td><div align='right'><span id="valorTotalServicos"></span></div></td>
+							<td></td>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<div class="span12">
+		<div class="widget" align='center'>
+			<div class="widget-header">
+				<h3>
+					<i class="icon-user"></i>
+					Ação
+			    </h3>
+			</div>
+			<div class="widget-content">
+				<button type="submit" class="btn btn-primary btn-large" onClick='gerarFatura();'>
+					<i class="icon-file"></i>
+					Gerar Fatura
+				</button>
+				<button type="submit" class="btn btn-secondary btn-large gerarDuplicata">
+					<i class="icon-file"></i>
+					Gerar Duplicata
+				</button>
+				<button type="reset" class="btn btn-large">
+					<i class="icon-remove"></i>
+					Cancelar
+				</button>
+			</div>
+		</div>
+	</div>
+</form>

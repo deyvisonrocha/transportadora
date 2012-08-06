@@ -1,0 +1,79 @@
+<div class="span12">
+	<h3>Faturas</h3>
+</div>
+
+<div class="span12">
+	<div class="widget widget-table" align='center'>
+		<div class="widget-header">
+			<h3>
+				<i class="icon-list-alt"></i>
+				Itens da Fatura
+		    </h3>
+		    <div class="widget-actions">
+				<div class="btn-group">
+                    <a class="btn btn-medium" href="<?php print $this->url(array('controller' => 'fatura', 'action' => 'form'), null, true); ?>">
+                        <i class="icon-plus"></i>
+                        Cadastrar
+                    </a>
+                </div>
+			</div> <!-- /.widget-actions -->
+		</div>
+
+
+		<div class="widget-content">
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th width="5%"><div align='center'>#</div></th>
+						<th width="40%">Cliente</th>
+						<th>Data de Emissão</th>
+						<th>Data de Vencimento</th>
+						<th>Número Fatura</th>
+						<th>Valor</th>
+						<th>Ação</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php
+					if (count($this->dados) > 0) :
+						foreach ($this->dados as $valor):
+					?>
+					<tr>
+						<td><div align='center'><?php print $valor['id_fatura'] ?></div></td>
+						<td><?php print $valor['razao_social'] ?></td>
+						<td><?php print Funcoes::formataData($valor['emissao']) ?></td>
+						<td><?php print Funcoes::formataData($valor['data_vencimento']) ?></td>
+						<td><?php print $valor['numero_fatura'] ?></td>
+						<td>R$ <?php print Funcoes::formataValor($valor['valor_total']) ?></td>
+						<td>
+							<a href="<?php print $this->url(array('controller' => 'fatura', 'action' => 'imprimir', 'id' => $valor['id_fatura']),null,true); ?>" class="btn btn-primary btn-mini">
+								<i class="icon-print"></i>
+								Imprimir
+							</a>
+							<a href="<?php print $this->url(array('controller' => 'fatura', 'action' => 'excluir', 'id' => $valor['id_fatura']),null,true); ?>" class="btn btn-danger btn-mini">
+								<i class="icon-trash"></i>
+								Excluir
+							</a>
+						</td>
+					</tr>
+					<?php
+						endforeach;
+					else:
+					?>
+					<tr>
+						<td colspan='7'>
+							<div align='center'>
+								Não foi encontrada nenhuma Fatura cadastrada.
+							</div>
+						</td>
+					</tr>
+					<?
+					endif;
+					?>
+				</tbody>
+				<tfoot>
+				</tfoot>
+			</table>
+		</div>
+	</div>
+</div>
