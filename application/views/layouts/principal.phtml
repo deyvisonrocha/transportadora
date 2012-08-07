@@ -4,8 +4,12 @@
         <?php include_once 'includes/header.phtml'; ?>
     </head>
     <body>
+        <?php if (Zend_Auth::getInstance()->hasIdentity()) :?>
         <?php include_once 'includes/topo.phtml'; ?>
+    	<?php endif; ?>
         <?php print $this->layout()->conteudoSite; ?>
+        <?php if (Zend_Auth::getInstance()->hasIdentity()) :?>
         <?php include_once 'includes/rodape.phtml'; ?>
+    	<?php endif; ?>
     </body>
 </html>

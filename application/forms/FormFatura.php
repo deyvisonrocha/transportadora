@@ -3,7 +3,7 @@ class FormFatura extends Zend_Form {
 
 
 	public function init() {
-
+		parent::init();
 		// Valor da fatura
 		$valor_fatura = $this->createElement('text', 'valor_fatura');
 		$valor_fatura	->setRequired(false)

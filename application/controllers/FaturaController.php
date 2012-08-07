@@ -20,6 +20,7 @@ class FaturaController extends BaseController {
     }
 
     public function init() {
+        parent::init();
     	// Instanciando
     	$this->formFatura = new FormFatura();
         $this->modeloCliente = new ModeloCliente();
@@ -82,5 +83,8 @@ class FaturaController extends BaseController {
         $this->view->fatura = $fatura;
         $this->view->cliente = $cliente;
         $this->view->itens = $itens;
+        if ($this->getRequest()->getParam('duplicata') == "sim") {
+            $this->view->duplicata = true;
+        }
     }
 }

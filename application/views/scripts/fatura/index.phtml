@@ -25,7 +25,7 @@
 				<thead>
 					<tr>
 						<th width="5%"><div align='center'>#</div></th>
-						<th width="40%">Cliente</th>
+						<th width="38%">Cliente</th>
 						<th>Data de Emissão</th>
 						<th>Data de Vencimento</th>
 						<th>Número Fatura</th>
@@ -48,7 +48,11 @@
 						<td>
 							<a href="<?php print $this->url(array('controller' => 'fatura', 'action' => 'imprimir', 'id' => $valor['id_fatura']),null,true); ?>" class="btn btn-primary btn-mini">
 								<i class="icon-print"></i>
-								Imprimir
+								Fatura
+							</a>
+							<a href="<?php print $this->url(array('controller' => 'fatura', 'action' => 'imprimir', 'id' => $valor['id_fatura'], 'duplicata' => 'sim'),null,true); ?>" class="btn btn-secondary btn-mini">
+								<i class="icon-print"></i>
+								Duplicata
 							</a>
 							<a href="<?php print $this->url(array('controller' => 'fatura', 'action' => 'excluir', 'id' => $valor['id_fatura']),null,true); ?>" class="btn btn-danger btn-mini">
 								<i class="icon-trash"></i>

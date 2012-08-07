@@ -1,23 +1,28 @@
+<?php $auth = Zend_Auth::getInstance()->getIdentity(); ?>
 <div id="header">
-
 	<div class="container">
-
 		<h1><a href="default.htm">Gerador de Planilhas</a></h1>
-
 		<div id="info">
-
 			<a href="javascript:;" id="info-trigger">
 				<i class="icon-cog"></i>
 			</a>
-
 			<div id="info-menu">
-
+				<div class="info-details">
+					<h4><?php print $auth->nome; ?></h4>
+					<p>
+						<?php print $auth->email; ?>
+						<br>
+						<a href="<?php print $this->url(array('controller'=>'usuario','action'=>'logout'), null, true); ?>">
+							Sair
+						</a>
+					</p>
+				</div> <!-- /.info-details -->
+				<div class="info-avatar">
+					<img src="img/avatar.jpg" alt="avatar">
+				</div> <!-- /.info-avatar -->
 			</div> <!-- /#info-menu -->
-
 		</div> <!-- /#info -->
-
 	</div> <!-- /.container -->
-
 </div> <!-- /#header -->
 
 
