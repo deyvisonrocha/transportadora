@@ -31,7 +31,7 @@
 		.tabelaPrincipal span.titulo {
 			padding: 2px;
 			display: block;
-			font-size: 18px;
+			font-size: 16pt;
 		}
 
 		.tabelaPrincipal tr td span.data_emissao {
@@ -46,40 +46,31 @@
 		#tabela {
 			border: 1px solid #2D41AE;
 			border-collapse: collapse;
-			border-radius: 10px;
-			-webkit-border-radius: 10px;
-			-moz-border-radius: 10px;
 		}
-		.tabelaFatura tr td {
+		.tabelaFatura {
 			font-size: 10px;
 			text-align: center;
+			border: 1px solid #2D41AE;
+			border-collapse: collapse;
 		}
-		.tabelaFatura td { border-top: 1px solid #000; border-left: 1px solid #000; }
-		.tabelaFatura tr:first-child td:first-child { 
-			border-top: 1px solid #000; 
-			border-left: 1px solid #000; 
-			border-top-left-radius: 10px;
-		}
-		.tabelaFatura tr:first-child td:last-child { 
-			border-top: 1px solid #000; 
-			border-right: 1px solid #000; 
-			border-top-right-radius: 10px;
-			-webkit-border-top-right-radius: 10px;
-			-moz-border-top-right-radius: 10px;
-		}
-		.tabelaFatura tr:last-child td:last-child { 
-			border-bottom: 1px solid #000; 
-			border-right: 1px solid #000; 
-			border-bottom-right-radius: 10px;
-		}
-		.tabelaFatura tr:last-child td:first-child { 
-			border-bottom: 1px solid #000; 
-			border-left: 1px solid #000; 
-			border-bottom-left-radius: 10px;
-		}
-		.tabelaFatura tr:last-child td { 
-			border-bottom: 1px solid #000; 
-			border-left: 1px solid #000; 
+
+		p.css-vertical-text {
+			color:#333;
+			border:0px solid red;
+			writing-mode:tb-rl;
+			-webkit-transform:rotate(270deg);
+			-moz-transform:rotate(270deg);
+			-o-transform: rotate(270deg);
+			white-space:nowrap;
+			display:block;
+			bottom:0;
+			width:20px;
+			height:20px;
+			font-family: ‘Trebuchet MS’, Helvetica, sans-serif;
+			font-size:24px;
+			font-weight:normal;
+			text-shadow: 0px 0px 1px #333;
+			filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 		}
 		</style>
 	</head>
@@ -118,30 +109,71 @@
 				<tr>
 					<td style="border-top: 1px solid #2D41AE; border-collapse: collapse;" colspan="2">
 						<!-- FATURA / DUPLICATA -->
-						<table border="0" class="tabelaFatura" cellpadding="0" cellspacing="0" width="85%" style="float: left;">
+						<table border="1" class="tabelaFatura" cellpadding="0" cellspacing="0" width="85%" style="float: left;">
 							<tr>
-								<td colspan="2">FATURA</td>
-								<td colspan="2">DUPLICATA</td>
-								<td rowspan="2" style="vertical-align: middle" >VENCIMENTO</td>
+								<td colspan="2"><div style='text-align: center'>FATURA</div></td>
+								<td colspan="2"><div style='text-align: center'>DUPLICATA</div></td>
+								<td rowspan="2" style="vertical-align: middle" ><div style='text-align: center'>VENCIMENTO</div></td>
 							</tr>
 							<tr>
-								<td align="center">VALOR R$</td>
-								<td align="center">NÚMERO</td>
-								<td align="center">VALOR R$</td>
-								<td align="center">NÚMERO</td>
+								<td align="center"><div style='text-align: center'>VALOR R$</div></td>
+								<td align="center"><div style='text-align: center'>NÚMERO</div></td>
+								<td align="center"><div style='text-align: center'>VALOR R$</div></td>
+								<td align="center"><div style='text-align: center'>NÚMERO</div></td>
 							</tr>
 							<tr>
-								<td style="font-size: 14px;">R$ <?php print Funcoes::formataValor($this->fatura->valor_total); ?></td>
-								<td style="font-size: 14px;"><?php print $this->fatura->numero_fatura; ?></td>
-								<td style="font-size: 14px;">R$ <?php print Funcoes::formataValor($this->fatura->valor_duplicata); ?></td>
-								<td style="font-size: 14px;"><?php print $this->fatura->numero_duplicata; ?></td>
-								<td style="font-size: 14px;"><?php print Funcoes::formataData($this->fatura->data_vencimento); ?></td>
+								<td style="font-size: 14px;">
+									R$ <?php print Funcoes::formataValor($this->fatura->valor_total); ?>
+								</td>
+								<td style="font-size: 14px;">
+									<div style="text-align: center;">
+										<?php print $this->fatura->numero_fatura; ?>
+									</div>
+								</td>
+								<td style="font-size: 14px;">
+									<div style="text-align: center;">
+										R$ <?php print Funcoes::formataValor($this->fatura->valor_duplicata); ?></td>
+									</div>
+								<td style="font-size: 14px;">
+									<div style="text-align: center;">
+										<?php print $this->fatura->numero_duplicata; ?>
+									</div>
+								</td>
+								<td style="font-size: 14px;">
+									<div style="text-align: center;">
+										<?php print Funcoes::formataData($this->fatura->data_vencimento); ?>
+									</div>
+								</td>
 							</tr>
 						</table>
 						<div id="financeira" 
-							style="float: right;text-align: center; border: 1px solid #000; border-radius:10px; font-size: 10px; width: 14%; height: 110px">
+							style="float: right;text-align: center; border: 1px solid #000; font-size: 10px; width: 14%; height: 110px">
 							PARA USO DA<br/>INSTITUIÇÃO FINANCEIRA
 						</div>
+
+						<div id="dados" style="float: left;margin-top: 0.5%;margin-left: 12%; width: 73%;text-align: left">
+							<div style="width: 50%; float:left;border:1px solid #000">
+								DESCONTO DE: <?php print $this->fatura->desconto; ?>
+							</div>
+							<div style="border:1px solid #000;float:left; width: 45%">
+								PAGAMENTO ATÉ: <?php print Funcoes::formataData($this->fatura->data_pagamento); ?>
+							</div>
+							<div style="">
+								CONDIÇÕES ESPECIAIS: <?php print $this->fatura->condicoes_especiais; ?>
+							</div>
+						</div>
+
+						<div style="float: left;position:absolute; margin-top:10%">
+							<p class="css-vertical-text">
+								TRANSROCHA SUAPE LOGÍSTICA LTDA.
+							</p>
+						</div>
+					</td>
+				</tr>
+
+				<tr>
+					<td style="border-top: 1px solid #2D41AE; border-collapse: collapse;" colspan="2">
+						<
 					</td>
 				</tr>
 			</table>
