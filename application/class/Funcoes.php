@@ -30,7 +30,7 @@ class Funcoes {
 		return number_format($valor,2,',','.');
 	}
 
-	function extenso($valor = 0, $maiusculas = false) {
+	public static function extenso($valor = 0, $maiusculas = false) {
 
 		$singular = array("centavo", "real", "mil", "milhão", "bilhão", "trilhão", "quatrilhão");
 		$plural = array("centavos", "reais", "mil", "milhões", "bilhões", "trilhões",

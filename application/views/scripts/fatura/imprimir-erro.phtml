@@ -1,0 +1,239 @@
+<!DOCTYPE html5>
+<html>
+	<head>
+		<meta charset="utf8">
+		<title>Impressão</title>
+		<style type="text/css" rel="stylesheet" href="<?php print $this->baseUrl()?>/public/css/reset.css"></style>
+		<style type="text/css">
+		/* tabelaPrincipal */
+		body {
+			margin: 0;
+			width: 100%;
+			height: 100%;
+		}
+		.tabelaPrincipal {
+			background: url("<?php print $this->baseUrl()?>/public/img/fatura.jpg") no-repeat;
+			color: #2D41AE;
+			width: 100%;
+			padding: 0;
+			margin: 0 auto;
+		}
+		.tabelaPrincipal tr td:first-child {
+			text-align: center;
+		}
+		.tabelaPrincipal tr td {
+			padding: 3px;
+		}
+		.tabelaPrincipal tr td {
+			text-align: left;
+			vertical-align: top;
+			font-size: 13px;
+		}
+		.tabelaPrincipal span.titulo {
+			padding: 2px;
+			display: block;
+			font-size: 16pt;
+		}
+
+		.tabelaPrincipal tr td span.data_emissao {
+			bottom: 0;
+			position: relative;
+			width: 100%;
+		}
+		.tabelaPrincipal .endereco2 {
+			font-size:12px;
+		}
+
+		#tabela {
+			border: 1px solid #2D41AE;
+			border-collapse: collapse;
+		}
+		.tabelaFatura {
+			font-size: 10px;
+			text-align: center;
+			border: 1px solid #2D41AE;
+			border-collapse: collapse;
+		}
+
+		p.css-vertical-text {
+			color:#333;
+			text-decoration: overline;
+			writing-mode:tb-rl;
+			-webkit-transform:rotate(270deg);
+			-moz-transform:rotate(270deg);
+			-o-transform: rotate(270deg);
+			white-space:nowrap;
+			display:block;
+			position: relative;
+			bottom:0;
+			width:20px;
+			height:20px;
+			/*font-family: 'Trebuchet MS', Helvetica, sans-serif;*/
+			font-size:8pt;
+			font-weight:normal;
+			text-shadow: 0px 0px 1px #333;
+			filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+		}
+		</style>
+	</head>
+
+	<body>
+		<div id="tabela">
+			<table class="tabelaPrincipal" border="0" cellpadding="0" cellspacing="0">
+				<tr>
+					<td width="65%">
+						<table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr>
+								<td>
+									<span class="titulo">
+										TRANSROCHA SUAPE LOGÍSTICA LTDA.
+									</span>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<span class="endereco">
+										C.N.A.E.: 4930-2/02<br/>
+										Rua Serra da Canastra, 298 - 1º Andar - Sala 103<br/>
+										Cordeiro - CEP 50640-310 - Recife - PE<br/>
+										Fone: (81) 4141-3900<br/>
+										C.N.P.J. 14.027.710/0001-10 - Insc. Estadual: 0450837-89<br/>
+									</span>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td style="border-left: 1px solid #2D41AE; border-collapse: collapse;">
+						<table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr>
+								<td style="text-align: left;">
+									<span class="endereco2">
+										Rua Serra da Canastra, 298 - 1º Andar - Sala 103<br/>
+										Cordeiro - CEP 50640-310 - Recife - PE<br/>
+										C.N.P.J. 14.027.710/0001-10<br/>
+										Insc. Estadual: 0450837-89<br/><br/><br/>
+									</span>
+
+									<span class="data_emissao">
+										DATA EMISSÃO: <?php print date("d/m/Y"); ?>
+									</span>
+								</td>
+							</tr>
+						</table>
+
+					</td>
+				</tr>
+				<!-- MEIO -->
+				<tr height="400px">
+					<td style="border-top: 1px solid #2D41AE; border-collapse: collapse;" colspan="2">
+						<!-- FATURA / DUPLICATA -->
+						<table border="1" class="tabelaFatura" cellpadding="0" cellspacing="0" width="85%" style="float: left;">
+							<tr>
+								<td colspan="2"><div style='text-align: center'>FATURA</div></td>
+								<td colspan="2"><div style='text-align: center'>DUPLICATA</div></td>
+								<td rowspan="2" style="vertical-align: middle" ><div style='text-align: center'>VENCIMENTO</div></td>
+							</tr>
+							<tr>
+								<td align="center"><div style='text-align: center'>VALOR R$</div></td>
+								<td align="center"><div style='text-align: center'>NÚMERO</div></td>
+								<td align="center"><div style='text-align: center'>VALOR R$</div></td>
+								<td align="center"><div style='text-align: center'>NÚMERO</div></td>
+							</tr>
+							<tr>
+								<td style="font-size: 14px;">
+									R$ <?php print Funcoes::formataValor($this->fatura->valor_total); ?>
+								</td>
+								<td style="font-size: 14px;">
+									<div style="text-align: center;">
+										<?php print $this->fatura->numero_fatura; ?>
+									</div>
+								</td>
+								<td style="font-size: 14px;">
+									<div style="text-align: center;">
+										R$ <?php print Funcoes::formataValor($this->fatura->valor_duplicata); ?></td>
+									</div>
+								<td style="font-size: 14px;">
+									<div style="text-align: center;">
+										<?php print $this->fatura->numero_duplicata; ?>
+									</div>
+								</td>
+								<td style="font-size: 14px;">
+									<div style="text-align: center;">
+										<?php print Funcoes::formataData($this->fatura->data_vencimento); ?>
+									</div>
+								</td>
+							</tr>
+						</table>
+						<div id="financeira"
+							style="float: right;text-align: center; border: 1px solid #000; font-size: 10px; width: 14%; height: 110px">
+							PARA USO DA<br/>INSTITUIÇÃO FINANCEIRA
+						</div>
+
+						<div id="dados" style="margin-top: 5%;margin-left: 12%; width: 73%;text-align: left">
+							<div style="width: 50%; float:left;">
+								DESCONTO DE: <?php print $this->fatura->desconto; ?>
+							</div>
+							<div style="float:left; width: 45%">
+								PAGAMENTO ATÉ: <?php print Funcoes::formataData($this->fatura->data_pagamento); ?>
+							</div>
+							<div style="">
+								CONDIÇÕES ESPECIAIS: <?php print $this->fatura->condicoes_especiais; ?>
+							</div>
+						</div>
+
+						<div style="position:fixed; margin-top:30%; margin-left: 7%">
+							<p class="css-vertical-text">
+								TRANSROCHA SUAPE LOGÍSTICA LTDA.
+							</p>
+						</div>
+
+						<div id="dados" style="float: left;margin-top: 1%;margin-left: 12%; width: 87%;text-align: left">
+							<table border="1" width="100%" cellpadding="0" cellspacing="0" style="border-collapse: collapse;">
+								<tr>
+									<td colspan="2" style="line-height:14pt" width="50%">
+										<div style="text-align:left">
+											NOME DO SACADO: <?php print $this->cliente->razao_social; ?><br/>
+											ENDEREÇO: <?php print $this->cliente->endereco; ?><br/>
+											MUNICÍPIO: <?php print $this->cliente->cidade; ?><br/>
+											PRAÇA DE PAGAMENTO: <?php print $this->cliente->cidade; ?><br/>
+											C.N.P.J./C.P.F.: <?php print $this->cliente->cpf_cnpj; ?><br/>
+										</div>
+									</td>
+									<td>
+										<div style="text-align:left; line-height:14pt">
+											<br/>
+											<br/>
+											ESTADO: <?php print $this->cliente->razao_social; ?><br/>
+											CEP: <?php print $this->cliente->cep; ?><br/>
+											INSC. ESTADUAL: <?php print $this->cliente->inscricao_estadual; ?><br/>
+										</div>
+									</td>
+								</tr>
+								<tr >
+									<td width="15%" height="80px" style="border: 1px solid #000; vertical-align: middle">
+										<div style="text-align: center;">
+											VALOR POR EXTENSO
+										</div>
+									</td>
+									<td colspan="2" style="border-top: 1px solid #000; border-right: 1px solid #000;border-bottom: 1px solid #000; padding: 5pt">
+										<?php print Funcoes::extenso($this->fatura->valor_total); ?>
+									</td>
+								</tr>
+							</table>
+						</div>
+						<div style="display: block; position: relative;width: 90%; margin-left: 6%">
+							RECONHEÇO(EMOS) A EXATIDÃO DESTA DUPLICATA DE PRESTAÇÃO DE SERViÇOS NA IMPORTÂNCIA ACIMA QUE PAGAREI(EMOS) À <strong>TRANSROCHA SUAPE LOGÍSTICA LTDA.</strong>, OU A SUA ORDEM NA PRAÇA E VENCIMENTO(S) INDICADO(S).
+						</div>
+					</td>
+				</tr>
+
+				<tr>
+					<td style="border-top: 1px solid #2D41AE; border-collapse: collapse;" colspan="2">
+						iji
+					</td>
+				</tr>
+			</table>
+		</div>
+
+	</body>
+</html>
