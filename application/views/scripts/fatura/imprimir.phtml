@@ -1,391 +1,603 @@
 <!DOCTYPE html>
+
 <html>
+
 	<head>
+
 		<meta charset="utf8">
+
 		<title>Impressão</title>
+
 		<style type="text/css" rel="stylesheet" href="reset.css"></style>
+
 		<style type="text/css">
-		@media print { 
-			<?php if ($this->duplicata) :?>
-			background: url("<?php print $this->baseUrl()?>/public/img/duplicata.jpg") transparent no-repeat !important;
-			<?php else: ?>
-			background: url("<?php print $this->baseUrl()?>/public/img/fatura.jpg") transparent no-repeat !important;
-			<?php endif; ?>
-			background-attachment: scroll;
-			padding:0;
-			margin:0;
-		} 
 
-		html {
-			<?php if ($this->duplicata) :?>
-			background: url("<?php print $this->baseUrl()?>/public/img/duplicata.jpg") transparent no-repeat !important;
-			<?php else: ?>
-			background: url("<?php print $this->baseUrl()?>/public/img/fatura.jpg") transparent no-repeat !important;
-			<?php endif; ?>
-			background-attachment: scroll;
-			padding:0;
-			margin:0;
+		h1 { padding:0; margin:0; line-height: 35px; font-size: 20px;}
+
+		* { font-size: 12px;}
+
+		.texto_vertical {
+
+			-webkit-transform: rotate(270deg);
+
+			-moz-transform: rotate(270deg);
+
+			-ms-transform: rotate(270deg);
+
+			-o-transform: rotate(270deg);
+
+			transform: rotate(270deg);
+
 		}
 
-		div {
-			font-size: 13px;
-		}
 
-		.folha { /* ok */
-			width: 595px;
-			height: 842px;
-			border-collapse: collapse;
-			padding: 0;
-			margin: 0;
-		}
-
-		.folha .cima {
-			position: absolute;
-			top: 28px;
-			width: 595px;
-		}
-
-		.folha .baixo {
-			position: absolute;
-			top: 570px;
-			width: 595px;
-		}
-		/* INICIO PARTE DE CIMA */
-		.folha .data_emissao {
-			position: absolute;
-			top: 98px;
-			left: 550px;
-		}
-		.folha .fatura_valor { /* ok */
-			position: absolute;
-			top: 170px;
-			left: -10px;
-			height: 34px;
-			width: 147px;
-			text-align: center;
-		}
-		.folha .fatura_numero { /* ok */
-			position: absolute;
-			top: 170px;
-			left: 130px;
-			height: 34px;
-			width: 120px;
-			text-align: center;
-		}
-
-		.folha .duplicata_valor { /* ok */
-			position: absolute;
-			top: 170px;
-			left: 230px;
-			height: 34px;
-			width: 147px;
-			text-align: center;
-		}
-		.folha .duplicata_numero { /* ok */
-			position: absolute;
-			top: 170px;
-			left: 370px;
-			height: 34px;
-			width: 120px;
-			text-align: center;
-		}
-		.folha .vencimento { /* ok */
-			position: absolute;
-			top: 170px;
-			left: 490px;
-			height: 34px;
-			width: 120px;
-			text-align: center;
-		}
-
-		.folha .desconto { /* ok */
-			position: absolute;
-			top: 200px;
-			left: 200px;
-			height: 34px;
-			width: 120px;
-			text-align: left;
-			font-size: 12px;
-		}
-
-		.folha .pagamento { /* ok */
-			position: absolute;
-			top: 200px;
-			left: 480px;
-			height: 34px;
-			width: 120px;
-			text-align: left;
-			font-size: 12px;
-		}
-
-		.folha .condicoes { /* ok */
-			position: absolute;
-			top: 221px;
-			left: 245px;
-			height: 34px;
-			width: 120px;
-			text-align: left;
-			font-size: 12px;
-		}
-
-		.folha .nome_sacado { /* ok */
-			position: absolute;
-			top: 253px;
-			left: 210px;
-			text-align: left;
-			font-size: 11px;
-		}
-
-		.folha .endereco_sacado { /* ok */
-			position: absolute;
-			top: 270px;
-			left: 180px;
-			text-align: left;
-			font-size: 11px;
-		}
-
-		.folha .municipio_sacado { /* ok */
-			position: absolute;
-			top: 288px;
-			left: 178px;
-			text-align: left;
-			font-size: 11px;
-		}
-
-		.folha .praca_pagamento_sacado { /* ok */
-			position: absolute;
-			top: 305px;
-			left: 235px;
-			text-align: left;
-			font-size: 11px;
-		}
-
-		.folha .cpf_cnpj_sacado { /* ok */
-			position: absolute;
-			top: 322px;
-			left: 190px;
-			text-align: left;
-			font-size: 11px;
-		}
-
-		.folha .estado_sacado { /* ok */
-			position: absolute;
-			top: 288px;
-			left: 495px;
-			text-align: left;
-			font-size: 11px;
-		}
-
-		.folha .cep_sacado { /* ok */
-			position: absolute;
-			top: 306px;
-			left: 480px;
-			text-align: left;
-			font-size: 11px;
-		}
-
-		.folha .ins_estadual_sacado { /* ok */
-			position: absolute;
-			top: 324px;
-			left: 525px;
-			text-align: left;
-			font-size: 11px;
-		}
-		.folha .valor_extenso { /* ok */
-			position: absolute;
-			top: 350px;
-			left: 210px;
-			text-align: left;
-			font-size: 12px;
-		}
-
-		/* FIM PARTE DE CIMA */
 
 		</style>
+
 	</head>
 
+
+
 	<body>
-		<div class="folha">
 
-			<div class="cima">
-				<div class="data_emissao">
-					<?php print date("d/m/Y"); ?>
-				</div>
 
-				<!-- DADOS DA FATURA -->
-				<div class="fatura_valor">
-					R$ <?php print Funcoes::formataValor($this->fatura->valor_total); ?>
-				</div>
-				<div class="fatura_numero">
-					<?php print $this->fatura->numero_fatura; ?>
-				</div>
-				<div class="duplicata_valor">
-					R$ <?php print Funcoes::formataValor($this->fatura->valor_duplicata); ?>
-				</div>
-				<div class="duplicata_numero">
-					<?php print $this->fatura->numero_duplicata; ?>
-				</div>
-				<div class="vencimento">
-					<?php print Funcoes::formataData($this->fatura->data_vencimento); ?>
-				</div>
-				<!-- DESCONTO -->
-				<div class="desconto">
-					1<?php print ($this->fatura->desconto == "0.00" ? "" : "R$ ".Funcoes::formataValor($this->fatura->desconto)) ?>
-				</div>
-				<!-- PAGAMENTO ATÉ -->
-				<div class="pagamento">
-					<?php print ($this->fatura->desconto == "" ? "" : Funcoes::formataData($this->fatura->data_pagamento)) ?>
-				</div>
-				<!-- CONDIÇÕES -->
-				<div class="condicoes">
-					<?php print ($this->fatura->condicoes_especiais == "" ? "" : $this->fatura->condicoes_especiais) ?>
-				</div>
 
-				<!-- DADOS DO SACADO -->
-				<div class="nome_sacado">
-					<?php print $this->cliente->razao_social ?>
-				</div>
-				<div class="endereco_sacado">
-					<?php print $this->cliente->endereco ?>
-				</div>
-				<div class="municipio_sacado">
-					<?php print $this->cliente->cidade ?>
-				</div>
-				<div class="praca_pagamento_sacado">
-					<?php print $this->cliente->cidade ?>
-				</div>
-				<div class="cpf_cnpj_sacado">
-					<?php
-					if (strlen($this->cliente->cpf_cnpj) == 11) {
-						print Funcoes::mascara($this->cliente->cpf_cnpj, "###.###.###-##");
-					} else {
-						print Funcoes::mascara($this->cliente->cpf_cnpj, "##.###.###/####-##");
-					}
-					?>
-				</div>
-				<div class="estado_sacado">
-					<?php print $this->cliente->uf ?>
-				</div>
-				<div class="cep_sacado">
-					<?php print $this->cliente->cep ?>
-				</div>
-				<div class="ins_estadual_sacado">
-					<?php print $this->cliente->inscricao_estadual ?>
-				</div>
+		<div id="pai">
 
-				<div class="valor_extenso">
-					<?php
-					$valor = str_replace(".","",$this->fatura->valor_total);
-					print GExtenso::moeda($valor);
-					?>
-				</div>
-			</div>
-			<!-- FIM CIMA -->
-			<?php if ($this->duplicata) :?>
-			<!-- BAIXO -->
-			<div class="baixo">
-				<div class="data_emissao">
-					<?php print date("d/m/Y"); ?>
-				</div>
+			<table width="793px" border="1" style="border-collapse: collapse;" cellpadding="0" cellspacing="0">
 
-				<!-- DADOS DA FATURA -->
-				<div class="fatura_valor">
-					R$ <?php print Funcoes::formataValor($this->fatura->valor_total); ?>
-				</div>
-				<div class="fatura_numero">
-					<?php print $this->fatura->numero_fatura; ?>
-				</div>
-				<div class="duplicata_valor">
-					R$ <?php print Funcoes::formataValor($this->fatura->valor_duplicata); ?>
-				</div>
-				<div class="duplicata_numero">
-					<?php print $this->fatura->numero_duplicata; ?>
-				</div>
-				<div class="vencimento">
-					<?php print Funcoes::formataData($this->fatura->data_vencimento); ?>
-				</div>
-				<!-- DESCONTO -->
-				<div class="desconto">
-					1<?php print ($this->fatura->desconto == "0.00" ? "" : "R$ ".Funcoes::formataValor($this->fatura->desconto)) ?>
-				</div>
-				<!-- PAGAMENTO ATÉ -->
-				<div class="pagamento">
-					<?php print ($this->fatura->desconto == "" ? "" : Funcoes::formataData($this->fatura->data_pagamento)) ?>
-				</div>
-				<!-- CONDIÇÕES -->
-				<div class="condicoes">
-					<?php print ($this->fatura->condicoes_especiais == "" ? "" : $this->fatura->condicoes_especiais) ?>
-				</div>
+				<!-- CABEÇALHO -->
 
-				<!-- DADOS DO SACADO -->
-				<div class="nome_sacado">
-					<?php print $this->cliente->razao_social ?>
-				</div>
-				<div class="endereco_sacado">
-					<?php print $this->cliente->endereco ?>
-				</div>
-				<div class="municipio_sacado">
-					<?php print $this->cliente->cidade ?>
-				</div>
-				<div class="praca_pagamento_sacado">
-					<?php print $this->cliente->cidade ?>
-				</div>
-				<div class="cpf_cnpj_sacado">
-					<?php
-					if (strlen($this->cliente->cpf_cnpj) == 11) {
-						print Funcoes::mascara($this->cliente->cpf_cnpj, "###.###.###-##");
-					} else {
-						print Funcoes::mascara($this->cliente->cpf_cnpj, "##.###.###/####-##");
-					}
-					?>
-				</div>
-				<div class="estado_sacado">
-					<?php print $this->cliente->uf ?>
-				</div>
-				<div class="cep_sacado">
-					<?php print $this->cliente->cep ?>
-				</div>
-				<div class="ins_estadual_sacado">
-					<?php print $this->cliente->inscricao_estadual ?>
-				</div>
+				<tr>
 
-				<div class="valor_extenso">
-					<?php
-					$valor = str_replace(".","",$this->fatura->valor_total);
-					print GExtenso::moeda($valor);
-					?>
-				</div>
-			</div>
-			<!-- FIM BAIXO DUPLICATA -->
-			<?php else: ?>
-			<style type="text/css">
-				.itens {
-					position: absolute;
-					top: 570px;
-					width: 595px;
-				}
-				.itens .table_itens {
-					width: 760px;
-					font-size: 10px;
-				}
-			</style>
-			<div class="itens">
-				<table border="0" class="table_itens">
-					<?php
-					$itens = $this->itens;
-					foreach ($itens as $valor) :
-					?>
-					<tr>
-						<td width="410px"><?php print $valor['descricao'] ?></td>
-						<td align='center'><?php print Funcoes::formataData($valor['data_execucao']) ?></td>
-						<td align='center'><?php print $valor['nota_fiscal']; ?></td>
-						<td align='right'><?php print "R$ ".Funcoes::formataValor($valor['valor']); ?></td>
+					<td colspan="4">
+
+						<div align="center">
+
+							<p>
+
+								<h1>TRANSROCHA SUAPE LOGÍSTICA LTDA.</h1>
+
+								C.N.A.E.: 4930-2/02<br/>
+
+								Rua Serra da Canastra, 298 - 1º Andar - Sala 103<br/>
+
+								Cordeiro - CEP 50640-310 - Recife - PE<br/>
+
+								Fone: (81) 4141.3900<br/>
+
+								C.N.P.J. 14.027.710/0001-10 - Insc. Estadual: 0450837-89
+
+							</p>
+
+						</div>
+
+					</td>
+
+					<td colspan="2" valign="top">
+
+						<div align="left">
+
+							<p>
+
+								Rua Serra da Canastra, 298 - 1º Andar - Sala 103<br/>
+
+								Cordeiro - CEP 50640-310 - Recife - PE<br/>
+
+								C.N.P.J. 14.027.710/0001-10<br/>
+
+								Insc. Estadual: 0450837-89<br/>
+
+							</p>
+
+						</div>
+
+						<div style="bottom: 0px;">
+
+							DATA EMISSÃO: <?php print date("d/m/Y"); ?>
+
+						</div>
+
+					</td>
+
+				</tr>
+
+				<!-- TOPO -->
+
+				<tr>
+
+					<td colspan="2">
+
+						<table border="1" cellpaddin="0" cellspacing="0" style="border-collapse: collapse;" width="100%">
+
+							<tr>
+
+								<td colspan="2"><div align="center">FATURA</div></td>
+
+							</tr>
+
+							<tr>
+
+								<td><div align="center">VALOR - R$</div></td>
+
+								<td><div align="center">NÚMERO</div></td>
+
+							</tr>
+
+							<tr>
+
+								<td><div align="center"><?php print Funcoes::formataValor($this->fatura->valor_total); ?></div></td>
+
+								<td><div align="center"><?php print $this->fatura->numero_fatura; ?></div></td>
+
+							</tr>
+
+						</table>
+
+					</td>
+
+					<td colspan="2">
+
+						<table border="1" cellpaddin="0" cellspacing="0" style="border-collapse: collapse;" width="100%">
+
+							<tr>
+
+								<td colspan="2"><div align="center">DUPLICATA</div></td>
+
+							</tr>
+
+							<tr>
+
+								<td><div align="center">VALOR - R$</div></td>
+
+								<td><div align="center">NÚMERO</div></td>
+
+							</tr>
+
+							<tr>
+
+								<td><div align="center"><?php print Funcoes::formataValor($this->fatura->valor_duplicata); ?></div></td>
+
+								<td><div align="center"><?php print $this->fatura->numero_duplicata; ?></div></td>
+
+							</tr>
+
+						</table>
+
+					</td>
+
+					<td width="152">
+
+						<table border="1" cellpaddin="0" cellspacing="0" style="border-collapse: collapse;" width="100%">
+
+							<tr rowspan="2">
+
+								<td colspan="2" height="35px"><div align="center">VENCIMENTO</div></td>
+
+							</tr>
+
+							<tr>
+
+								<td><div align="center"><?php print Funcoes::formataData($this->fatura->data_vencimento); ?></div></td>
+
+							</tr>
+
+						</table>
+
+					</td>
+
+					<td width="192" rowspan="3" valign="top">
+
+						<div align="center">
+
+							PARA USO DA<br/>INSTITUIÇÃO FINANCEIRA
+
+						</div></td>
+
 					</tr>
-					<?php endforeach; ?>
-				</table>
+
+					<!-- MEIO -->
+
+					<tr>
+						<td width="200" rowspan="5">
+							<div align="center">
+								<p class="texto_vertical">
+									________________________________________
+									TRANSROCHA SUAPE LOGÍSTICA LTDA.
+								</p>
+							</div>
+						</td>
+						<td colspan="2">
+							DESCONTO DE: <?php print ($this->fatura->desconto == "0.00" ? "" : "R$ ".Funcoes::formataValor($this->fatura->desconto)) ?>
+						</td>
+						<td colspan="2">
+							PAGAMENTO ATÉ: <?php print ($this->fatura->desconto == "" ? "" : Funcoes::formataData($this->fatura->data_pagamento)) ?>
+						</td>
+					</tr>
+					<!-- MEIO -->
+					<tr>
+						<td colspan="4">
+							CONDIÇÕES ESPECIAIS: <?php print ($this->fatura->condicoes_especiais == "" ? "" : $this->fatura->condicoes_especiais) ?>
+						</td>
+					</tr>
+					<tr>
+
+						<td colspan="5">
+
+							<table width="100%" border="1" cellspacing="0" cellpadding="0" style="border-collapse: collapse;">
+
+								<tr>
+
+									<td colspan="2">
+
+										<table width="100%" border="1" cellspacing="0" cellpadding="0">
+
+											<tr>
+
+												<td colspan="2">
+
+													NOME DO SACADO: <?php print $this->cliente->razao_social ?>
+
+												</td>
+
+											</tr>
+
+											<tr>
+
+												<td colspan="2">
+
+													ENDEREÇO: <?php print $this->cliente->endereco ?>
+
+												</td>
+
+											</tr>
+
+											<tr>
+
+												<td>
+
+													MUNICÍPIO: <?php print $this->cliente->cidade ?>
+
+												</td>
+
+												<td>
+
+													ESTADO: <?php print $this->cliente->uf ?>
+
+												</td>
+
+											</tr>
+
+											<tr>
+
+												<td>
+
+													PRAÇA DE PAGAMENTO: <?php print $this->cliente->cidade ?>
+
+												</td>
+
+												<td>
+
+													CEP: <?php print $this->cliente->cep ?>
+
+												</td>
+
+											</tr>
+
+											<tr>
+
+												<td>
+
+													C.N.P.J./C.P.F.:
+
+													<?php
+
+													if (strlen($this->cliente->cpf_cnpj) == 11) {
+
+														print Funcoes::mascara($this->cliente->cpf_cnpj, "###.###.###-##");
+
+													} else {
+
+														print Funcoes::mascara($this->cliente->cpf_cnpj, "##.###.###/####-##");
+
+													}
+
+													?>
+
+												</td>
+
+												<td>
+
+													INSC. ESTADUAL: <?php print $this->cliente->inscricao_estadual ?>
+
+												</td>
+
+											</tr>
+
+										</table>
+
+									</td>
+
+								</tr>
+
+								<tr>
+
+									<td width="17%" align="center" valign="middle">
+
+										<strong>VALOR POR EXTENSO</strong>
+
+									</td>
+
+									<td width="83%">
+
+										<?php
+
+										$valor = str_replace(".","",$this->fatura->valor_total);
+
+										print GExtenso::moeda($valor);
+
+										?>
+
+									</td>
+
+								</tr>
+
+							</table>
+
+					</td>
+
+				</tr>
+
+				<tr>
+
+					<td colspan="5">
+
+						RECONHEÇO(EMOS) A EXATIDÃO DESTA DUPLICATA DE PRESTAÇÃO DE SERVIÇOS NA IMPORTÂNCIA ACIMA QUE PAGAREI(EMOS) À TRANSROCHA SUAPE LOGÍSTICA LTDA.
+
+					</td>
+
+				</tr>
+
+				<tr>
+
+					<td colspan="2">
+
+						EM, __ / __ / ____<br/>
+
+						DATA	DO	ACEITE  	<br/>
+
+					</td>
+
+					<td width="80">&nbsp;</td>
+
+					<td colspan="2">
+
+						_____________________________________<br />
+
+									ASSINATURA DO SACADO
+
+					</td>
+
+				</tr>
+
+			</table>
+
+		</div>
+
+			<!-- FIM CIMA -->
+
+			<?php if ($this->duplicata) :?>
+
+			<!-- BAIXO -->
+
+			<div class="baixo">
+
+				<div class="data_emissao">
+
+					<?php print date("d/m/Y"); ?>
+
+				</div>
+
+
+
+				<!-- DADOS DA FATURA -->
+
+				<div class="fatura_valor">
+
+					R$ <?php print Funcoes::formataValor($this->fatura->valor_total); ?>
+
+				</div>
+
+				<div class="fatura_numero">
+
+					<?php print $this->fatura->numero_fatura; ?>
+
+				</div>
+
+				<div class="duplicata_valor">
+
+					R$ <?php print Funcoes::formataValor($this->fatura->valor_duplicata); ?>
+
+				</div>
+
+				<div class="duplicata_numero">
+
+					<?php print $this->fatura->numero_duplicata; ?>
+
+				</div>
+
+				<div class="vencimento">
+
+					<?php print Funcoes::formataData($this->fatura->data_vencimento); ?>
+
+				</div>
+
+				<!-- DESCONTO -->
+
+				<div class="desconto">
+
+					1<?php print ($this->fatura->desconto == "0.00" ? "" : "R$ ".Funcoes::formataValor($this->fatura->desconto)) ?>
+
+				</div>
+
+				<!-- PAGAMENTO ATÉ -->
+
+				<div class="pagamento">
+
+					<?php print ($this->fatura->desconto == "" ? "" : Funcoes::formataData($this->fatura->data_pagamento)) ?>
+
+				</div>
+
+				<!-- CONDIÇÕES -->
+
+				<div class="condicoes">
+
+					<?php print ($this->fatura->condicoes_especiais == "" ? "" : $this->fatura->condicoes_especiais) ?>
+
+				</div>
+
+
+
+				<!-- DADOS DO SACADO -->
+
+				<div class="nome_sacado">
+
+					<?php print $this->cliente->razao_social ?>
+
+				</div>
+
+				<div class="endereco_sacado">
+
+					<?php print $this->cliente->endereco ?>
+
+				</div>
+
+				<div class="municipio_sacado">
+
+					<?php print $this->cliente->cidade ?>
+
+				</div>
+
+				<div class="praca_pagamento_sacado">
+
+					<?php print $this->cliente->cidade ?>
+
+				</div>
+
+				<div class="cpf_cnpj_sacado">
+
+					<?php
+
+					if (strlen($this->cliente->cpf_cnpj) == 11) {
+
+						print Funcoes::mascara($this->cliente->cpf_cnpj, "###.###.###-##");
+
+					} else {
+
+						print Funcoes::mascara($this->cliente->cpf_cnpj, "##.###.###/####-##");
+
+					}
+
+					?>
+
+				</div>
+
+				<div class="estado_sacado">
+
+					<?php print $this->cliente->uf ?>
+
+				</div>
+
+				<div class="cep_sacado">
+
+					<?php print $this->cliente->cep ?>
+
+				</div>
+
+				<div class="ins_estadual_sacado">
+
+					<?php print $this->cliente->inscricao_estadual ?>
+
+				</div>
+
+
+
+				<div class="valor_extenso">
+
+					<?php
+
+					$valor = str_replace(".","",$this->fatura->valor_total);
+
+					print GExtenso::moeda($valor);
+
+					?>
+
+				</div>
+
 			</div>
+
+			<!-- FIM BAIXO DUPLICATA -->
+
+			<?php else: ?>
+
+			<style type="text/css">
+
+				.itens {
+
+					position: absolute;
+
+					top: 570px;
+
+					width: 595px;
+
+				}
+
+				.itens .table_itens {
+
+					width: 760px;
+
+					font-size: 10px;
+
+				}
+
+			</style>
+
+			<div class="itens">
+
+				<table border="0" class="table_itens">
+
+					<?php
+
+					$itens = $this->itens;
+
+					foreach ($itens as $valor) :
+
+					?>
+
+					<tr>
+
+						<td width="410px"><?php print $valor['descricao'] ?></td>
+
+						<td align='center'><?php print Funcoes::formataData($valor['data_execucao']) ?></td>
+
+						<td align='center'><?php print $valor['nota_fiscal']; ?></td>
+
+						<td align='right'><?php print "R$ ".Funcoes::formataValor($valor['valor']); ?></td>
+
+					</tr>
+
+					<?php endforeach; ?>
+
+				</table>
+
+			</div>
+
+
 
 			<?php endif; ?>
+
 		</div>
+
 	</body>
+
 </html>

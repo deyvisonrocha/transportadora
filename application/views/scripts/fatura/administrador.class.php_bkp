@@ -1,0 +1,286 @@
+<?php
+
+	include "conexao.class.php";
+	include "PHPMailer/class.phpmailer.php";
+	
+	class Administrador { // Define o usuário do sistema
+	
+		private $nome;
+		private $usuario;
+		private $senha;
+		private $dataUltimoAcesso;
+		
+		public function __construct() { // construtor
+			date_default_timezone_set('America/Sao_Paulo');
+			$conexao = new Conexao();	
+		}
+				
+		public function enviarNews($news, $emailDestino) {
+			
+			$nomeGatilho	= 'Virtua Office';
+			$assunto		= 'Newsletter Virtua Office';
+			$emailGatilho	= 'virtua@virtuaoffice.com.br';
+			
+			$newsletter = new PHPMailer();
+			
+			/*date_default_timezone_set('America/Sao_Paulo');
+			$ip = getenv("REMOTE_ADDR");*/
+							
+			$newsletter->SetLanguage("br");
+			$newsletter->IsMail();
+			$newsletter->IsHTML(true);
+			$newsletter->Charset = "utf-8";
+			$newsletter->From = $emailGatilho;
+			$newsletter->FromName = $nomeGatilho;
+			$newsletter->AddAddress($emailDestino);
+			$newsletter->Subject = $assunto;
+		 
+			$corpoEmail = $news;
+			$newsletter->MsgHTML($corpoEmail);
+			
+			$enviado = $newsletter->Send();
+			
+			$newsletter->ClearAllRecipients();
+			$newsletter->ClearAttachments();
+			
+			if ($enviado) {
+				return true;
+			} else {
+				return false;	
+			}
+		
+		}
+		
+		public function deletarUltimaNews () {
+			
+			$deleta = mysql_query("DELETE FROM newsletter");
+			
+			if ($deleta) {
+				return true;
+			} else {
+				return false;	
+			}
+		
+		}
+		
+		public function salvarResposta($resposta, $idAdm) {
+		
+			$add = mysql_query("INSERT INTO resposta 
+								(titulo, texto, foto1, legenda_foto1, foto2, legenda_foto2, arquivo_tabela1, legenda_tabela1, arquivo_tabela2, legenda_tabela2, arquivo_tabela3, 																																																																																																																																																																					                                 legenda_tabela3, id_adm) 
+								VALUES 
+								('".$resposta->getTitulo()."', '".$resposta->getTexto()."', '".$resposta->getImagem1()."', '".$resposta->getLegenda1()."', 
+								 '".$resposta->getImagem2()."', '".$resposta->getLegenda2()."', '".$resposta->getArquivo1()."', '".$resposta->getLegendaArquivo1()."',
+								 '".$resposta->getArquivo2()."', '".$resposta->getLegendaArquivo2()."', '".$resposta->getArquivo3()."', '".$resposta->getLegendaArquivo3()."',
+								 '$idAdm')") or die(mysql_error());
+								 
+			if ($add) {
+				return true;
+			} else {
+				return false;
+			}
+		
+		}
+		
+		public function enderecoUnidades() {
+						
+			$consulta = mysql_query("SELECT endereco, id FROM unidades ORDER BY id");
+			$arrayEnderecos = array();
+			while ($enderecos = mysql_fetch_array($consulta)) {
+				$arrayEnderecos[] = $enderecos[0];
+			}	
+			
+			return $arrayEnderecos;
+		
+		}
+		
+		public function dadosNewsletter() {
+			
+			$consulta = mysql_query("SELECT * FROM newsletter");
+			return $dados = mysql_fetch_assoc($consulta);
+		
+		}
+		
+		public function dadosResposta() {
+			
+			$consulta = mysql_query("SELECT * FROM resposta");
+			return $dados = mysql_fetch_assoc($consulta);
+		
+		}
+				
+		public function deletarArquivos($name) { // Esse método apaga todos os arquivos no diretório MENOS o passado como argumento para o parametro $name
+			
+			$dir = '../view/image/upload/news/';
+			if (is_dir($dir)) {
+				
+				if($handle = opendir($dir)) {
+					while(($file = readdir($handle)) !== false) {
+						if($file != '.' && $file != '..') {
+							if($file != $name) {
+								unlink($dir.$file);
+							}
+						}
+					}
+				}
+			
+			} else {
+				die("Erro ao abrir dir: $dir");
+			}
+			return 0;
+			
+		}		
+		
+		public function salvarNews($news, $idAdm) {
+
+			$salva = mysql_query("INSERT INTO newsletter (titulo, texto, foto1, legenda_foto1, foto2, legenda_foto2, id_adm) 
+								  VALUES 
+								  ('".$news->getTitulo()."', '".$news->getTexto()."', '".$news->getImagem1()."', '".$news->getLegenda1()."',
+								   '".$news->getImagem2()."', '".$news->getLegenda2()."', '$idAdm')") or die(mysql_error());
+			
+			if ($salva) {
+				return true;	
+			} else {
+				return false;
+			}
+		
+		}
+		
+		public function dadosAdministrador($id) {
+			
+			$consulta = mysql_query("SELECT * FROM administrador WHERE id = '$id'");
+			return mysql_fetch_array($consulta);			
+		
+		}
+		
+		public function alterarSenha() {
+		
+			$senha = mysql_query("UPDATE administrador SET senha = '".$this->getSenha()."'");
+			
+			if ($senha) {
+				return true;	
+			} else {
+				return false;
+			}
+		
+		}
+		
+		public function tirarBrEndereco() {
+			
+			$consulta = mysql_query("SELECT endereco, id FROM unidades ORDER BY id");
+			$arrayEnderecos = array();
+			while ($enderecos = mysql_fetch_array($consulta)) {
+				$arrayEnderecos[] = str_replace('<br />', '', $enderecos[0]);
+			}	
+			
+			return $arrayEnderecos;
+		
+		}
+		
+		public function editarEnderecoUnidades($endereco, $id) {
+			
+			$edita = mysql_query("UPDATE unidades SET endereco = '$endereco' WHERE id = '$id'");
+						
+			if ($edita) {
+				return true;
+			} else {
+				return false;
+			}
+		
+		}
+		
+		public function redireciona($pagina, $tipo, $msg) {
+			if ($tipo != NULL && $msg != NULL) {
+				header("location:../base.php?id=".$pagina."&tp=".base64_encode($tipo)."&msg=".base64_encode($msg));
+			} else {
+				header("location:../base.php?id=".$pagina);
+			}
+		}
+		
+		public function addUsuario($nome, $email, $telefone) {
+			
+			$add = mysql_query("INSERT INTO usuario (nome, email, telefone) VALUES ('$nome', '$email', '$telefone')");
+			
+			if ($add) {
+				return true;
+			} else {
+				return false;
+			}
+		
+		}
+		
+		public function excluirUsuario($idUsuario) {
+			$excluir = mysql_query("DELETE FROM usuario WHERE id = '$idUsuario'");
+			
+			if ($excluir) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		
+		public function registrarUltimoAcesso($id) {
+			$logoff = mysql_query("UPDATE administrador SET ultimo_acesso = '".$this->getDataUltimoAcesso()."' WHERE id = '$id'");
+			
+			if ($logoff) {
+				return true;
+			} else {
+				return false;
+			}		
+		}
+		
+		public function consultarAdministrador() {
+			$consulta = mysql_query("SELECT * FROM administrador WHERE usuario = '".$this->getUsuario()."' AND senha = '".$this->getSenha()."'");			
+			$vRow = mysql_num_rows($consulta);
+			
+			if ($vRow) {
+				$resposta = mysql_fetch_array($consulta);
+				$_SESSION["id"] = $resposta["id"];
+				return true;
+			} else {
+				return false;
+			}		
+		}
+		
+		public function escape($str) {
+				
+			if (!is_numeric($str)) {
+				$str = get_magic_quotes_gpc() ? stripslashes($str) : $str;
+				$str = function_exists('mysql_real_escape_string') ? mysql_real_escape_string($str) : mysql_escape_string($str);
+			}
+			return $str;
+		
+		}
+		
+		public function setNome($nome) {			
+			$this->nome = $nome;		
+		}
+		
+		public function getNome() {
+			return $this->nome;	
+		}
+				
+		public function setUsuario($usuario) {			
+			$this->usuario = $usuario;		
+		}
+		
+		public function getUsuario() {
+			return $this->usuario;	
+		}
+		
+		public function setSenha($senha) {			
+			$this->senha = $senha;		
+		}
+		
+		public function getSenha() {
+			return $this->senha;	
+		}
+		
+		public function setDataUltimoAcesso($dataUltimoAcesso) {			
+			$this->dataUltimoAcesso = $dataUltimoAcesso;		
+		}
+		
+		public function getDataUltimoAcesso() {
+			return $this->dataUltimoAcesso;	
+		}
+	
+	
+	}
