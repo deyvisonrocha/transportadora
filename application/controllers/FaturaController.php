@@ -12,11 +12,6 @@ class FaturaController extends BaseController {
 
     public function preDispatch() {
         parent::preDispatch();
-
-        /*$ajaxContext = $this->_helper->getHelper('AjaxContext');
-        $ajaxContext->addActionContext('lista-itens', 'html')
-                    ->addActionContext('inserirItem', 'json')
-                    ->initContext();*/
     }
 
     public function init() {
@@ -86,5 +81,34 @@ class FaturaController extends BaseController {
         if ($this->getRequest()->getParam('duplicata') == "sim") {
             $this->view->duplicata = true;
         }
+    }
+
+    /**
+     * Método para Retornar o cliente pelo CPF digitado.
+     */
+    public function buscarClienteAction() {
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(TRUE);
+
+        // campo
+        $cpf_cnpj = $this->_getParam('term');
+        $retorno = parent::buscarCliente($cpf_cnpj);
+        $json = array();
+        foreach ($retorno as $valor) {
+            $json['id_cliente'] = $valor['id_cliente'];
+            $json['razao_social'] = $valor['razao_social'];
+            $json['nome_fantasia'] = $valor['nome_fantasia'];
+            $json['endereco'] = $valor['endereco'];
+            $json['numero'] = $valor['numero'];
+            $json['complemento'] = $valor['complemento'];
+            $json['bairro'] = $valor['bairro'];
+            $json['cidade'] = $valor['cidade'];
+            $json['uf'] = $valor['uf'];
+            $json['cep'] = $valor['cep'];
+            $json['contato'] = $valor['contato'];
+            $json['cpf_cnpj'] = $valor['cpf_cnpj'];
+            $json['value'] = $valor['cpf_cnpj']."|".$valor['razao_social'] ." | ".$valor['nome_fantasia'];
+        }
+        print "[".json_encode($json)."]";
     }
 }

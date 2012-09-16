@@ -1,5 +1,210 @@
-<form action="imprimir_fatura.php" id="formulario-fatura" class="form-horizontal" novalidate="novalidate" method="post">
+<script type="text/javascript">
+	$(function () {
+		// formata os campos data
+		$("input[name*=data]").setMask('date', {placeholder: " "}).datepicker();;
+
+		// dados da fatura
+		$("input[name*=valor], input[name*=desconto]").setMask('decimal', {placeholder: " "});
+
+		var clientes = [
+			"04842255455",
+			"05292438499",
+			"12345678910",
+			"02255544711"
+		];
+
+		// autocomplete
+		$("#destino_cpf_cnpj").autocomplete(
+			{
+				minLength: 2,
+				selectFirst: true,
+				source: urlSite + "/ordem-servico/buscar-cliente",
+				select: function (event, ui) {
+					$("#id_cliente_destino").val(ui.item.id_cliente);
+					$("#destino_razao_social").val(ui.item.razao_social);
+					// se tiver complemento
+					var complemento = '';
+					if (ui.item.complemento != null) {
+						complemento = ', '+ui.item.complemento;
+					}
+					$("#destino_endereco").val(ui.item.endereco);
+					$("#destino_numero").val(ui.item.numero);
+					$("#destino_complemento").val(complemento);
+					$("#destino_bairro").val(ui.item.bairro);
+					$("#destino_cidade").val(ui.item.cidade);
+					$("#destino_uf").val(ui.item.uf);
+					$("#destino_cep").val(ui.item.cep);
+					$("#destino_contato").val(ui.item.contato);
+					$("#destino_cpf_cnpj").val('').val(ui.item.cpf_cnpj);
+				}
+			}
+		);
+
+		$("#origem_cpf_cnpj").autocomplete(
+			{
+				minLength: 2,
+				selectFirst: true,
+				source: urlSite + "/ordem-servico/buscar-cliente",
+				select: function (event, ui) {
+					console.log(event);
+					console.log(ui);
+					$("#id_cliente_origem").val(ui.item.id_cliente);
+					$("#origem_razao_social").val(ui.item.razao_social);
+					// se tiver complemento
+					var complemento = '';
+					if (ui.item.complemento != null) {
+						complemento = ', '+ui.item.complemento;
+					}
+					$("#origem_endereco").val(ui.item.endereco);
+					$("#origem_numero").val(ui.item.numero);
+					$("#origem_complemento").val(complemento);
+					$("#origem_bairro").val(ui.item.bairro);
+					$("#origem_cidade").val(ui.item.cidade);
+					$("#origem_uf").val(ui.item.uf);
+					$("#origem_cep").val(ui.item.cep);
+					$("#origem_contato").val(ui.item.contato);
+					$("#origem_cpf_cnpj").val('').val(ui.item.cpf_cnpj);
+				}
+			}
+		);
+	});
+</script>
+
+<form action="<?= $this->form->getAction() ?>" id="formulario-fatura" class="form-horizontal" novalidate="novalidate" method="<?= $this->form->getMethod() ?>">
+
+	<!-- DADOS ORIGEM -->
 	<div class="span6">
+		<div id="validation" class="widget highlight widget-form">
+			<div class="widget-header">
+				<h3>
+					<i class="icon-map-marker"></i>
+					Dados de Origem
+			    </h3>
+			</div>
+			<div class="widget-content">
+				<fieldset>
+					<input id="id_cliente" type="hidden" name="id_cliente_origem">
+					<div class="control-group">
+						<label class="control-label" for="origem_cpf_cnpj">CNPJ/CPF</label>
+						<div class="controls">
+							<?= $this->form->origem_cpf_cnpj ?>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="origem_razao_social">Razão Social</label>
+						<div class="controls">
+							<?= $this->form->origem_razao_social ?>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="origem_endereco">Endereço</label>
+						<div class="controls">
+							<?= $this->form->origem_endereco ?>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="origem_cidade">Cidade</label>
+						<div class="controls">
+							<?= $this->form->origem_cidade ?>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="origem_uf">UF</label>
+						<div class="controls">
+							<?= $this->form->origem_uf ?>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="origem_contato">Contato</label>
+						<div class="controls">
+							<?= $this->form->origem_contato ?>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="origem_fone">Telefone</label>
+						<div class="controls">
+							<?= $this->form->origem_fone ?>
+						</div>
+					</div>
+				</fieldset>
+			</div> <!-- /widget-content -->
+		</div>
+	</div>
+
+	<!-- DADOS DESTINO -->
+	<div class="span6">
+		<div id="validation" class="widget highlight widget-form">
+			<div class="widget-header">
+				<h3>
+					<i class="icon-road"></i>
+					Dados de Destino
+			    </h3>
+			</div>
+			<div class="widget-content">
+				<fieldset>
+					<input id="id_cliente" type="hidden" name="id_cliente_destino">
+					<div class="control-group">
+						<label class="control-label" for="destino_cpf_cnpj">CNPJ/CPF</label>
+						<div class="controls">
+							<?= $this->form->origem_cpf_cnpj ?>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="destino_razao_social">Razão Social</label>
+						<div class="controls">
+							<?= $this->form->destino_razao_social ?>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="destino_endereco">Endereço</label>
+						<div class="controls">
+							<?= $this->form->destino_endereco ?>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="destino_cidade">Cidade</label>
+						<div class="controls">
+							<?= $this->form->destino_cidade ?>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="destino_uf">UF</label>
+						<div class="controls">
+							<?= $this->form->destino_uf ?>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="destino_contato">Contato</label>
+						<div class="controls">
+							<?= $this->form->destino_contato ?>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="destino_fone">Telefone</label>
+						<div class="controls">
+							<?= $this->form->destino_fone ?>
+						</div>
+					</div>
+				</fieldset>
+			</div> <!-- /widget-content -->
+		</div>
+	</div>
+
+
+	<!-- DADOS DO ORÇAMENTO -->
+	<div class="span4">
 		<div id="validation" class="widget highlight widget-form">
 			<div class="widget-header">
 				<h3>
@@ -12,62 +217,20 @@
 					<div class="control-group">
 						<label class="control-label" for="data">Data Execução</label>
 						<div class="controls">
-							<input class="input-small" id="data_execucao" size="16" type="text" name="data_execucao">
+							<?= $this->form->data_execucao ?>
 							<span class="help-inline">DD/MM/YYYY</span>
 						</div>
 					</div>
 					<div class="control-group">
-						<label class="control-label" for="km_inicial">Km Inicial</label>
+						<label class="control-label" for="km_inicial">KM Inicial</label>
 						<div class="controls">
-							<input class="input-small" id="km_inicial" size="16" type="text" name="km_inicial">
+							<?= $this->form->km_inicial ?>
 						</div>
 					</div>
 					<div class="control-group">
-						<label class="control-label" for="km_final">Km Final</label>
+						<label class="control-label" for="km_final">KM Final</label>
 						<div class="controls">
-							<input class="span2 input-medium" id="km_final" type="text" name="km_final"/>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="numero_duplicata">Número da Duplicata</label>
-						<div class="controls">
-							<div class="input-prepend input-append">
-								<span class="add-on">Nº</span>
-								<input class="span2 input-medium" id="numero_duplicata" size="16" type="text" name="numero_duplicata">
-							</div>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="data_vencimento">Data de Vencimento</label>
-						<div class="controls">
-							<input class="input-small" id="data_vencimento" size="16" type="text" name="data_vencimento">
-							<span class="help-inline">DD/MM/YYYY</span>
-						</div>
-					</div>
-
-					<div class="control-group">
-						<label class="control-label" for="desconto">Desconto De</label>
-						<div class="controls">
-							<div class="input-prepend input-append">
-								<span class="add-on">R$</span>
-								<input class="span2 input-large" id="desconto" size="16" type="text" name="desconto">
-							</div>
-						</div>
-					</div>
-
-					<div class="control-group">
-						<label class="control-label" for="data_pagamento">Pagamento Até</label>
-						<div class="controls">
-							<input class="input-small" id="data_pagamento" size="16" type="text" name="data_pagamento">
-							<span class="help-inline">DD/MM/YYYY</span>
-						</div>
-					</div>
-
-
-					<div class="control-group">
-						<label class="control-label" for="condicoes_especiais">Condições Especiais</label>
-						<div class="controls">
-							<input class="input-xlarge" id="condicoes_especiais" size="16" type="text" name="condicoes_especiais">
+							<?= $this->form->km_final ?>
 						</div>
 					</div>
 				</fieldset>
@@ -75,69 +238,27 @@
 		</div>
 	</div>
 
-	<div class="span6">
+	<!-- SERVIÇOS A EXECUTAR -->
+	<div class="span8">
 		<div id="validation" class="widget highlight widget-form">
 			<div class="widget-header">
 				<h3>
-					<i class="icon-user"></i>
-					Dados do Sacado
+					<i class="icon-comment"></i>
+					Serviço a Executar
 			    </h3>
 			</div>
 			<div class="widget-content">
 				<fieldset>
 					<div class="control-group">
-						<label class="control-label" for="nome_sacado">Nome do Sacado</label>
+						<label class="control-label" for="titulo_servico">Titulo do Serviço</label>
 						<div class="controls">
-							<input class="input-xlarge" id="nome_sacado" size="16" type="text" name="nome_sacado">
+							<?= $this->form->titulo_servico ?>
 						</div>
 					</div>
-
 					<div class="control-group">
-						<label class="control-label" for="endereco_sacado">Endereço</label>
+						<label class="control-label" for="descricao_servico">Descrição do Serviço</label>
 						<div class="controls">
-							<input class="input-xlarge" id="endereco_sacado" size="16" type="text" name="endereco_sacado">
-						</div>
-					</div>
-
-					<div class="control-group">
-						<label class="control-label" for="municipio_sacado">Município</label>
-						<div class="controls">
-							<input class="input-medium" id="municipio_sacado" size="16" type="text" name="municipio_sacado">
-						</div>
-					</div>
-
-					<div class="control-group">
-						<label class="control-label" for="estado_sacado">Estado</label>
-						<div class="controls">
-							<input class="input-medium" id="estado_sacado" size="16" type="text" name="estado_sacado">
-						</div>
-					</div>
-
-					<div class="control-group">
-						<label class="control-label" for="cep_sacado">CEP</label>
-						<div class="controls">
-							<input class="input-small" id="cep_sacado" size="16" type="text" name="cep_sacado">
-						</div>
-					</div>
-
-					<div class="control-group">
-						<label class="control-label" for="praca_pagamento_sacado">Praça de Pagamento</label>
-						<div class="controls">
-							<input class="input-xlarge" id="praca_pagamento_sacado" size="16" type="text" name="praca_pagamento_sacado">
-						</div>
-					</div>
-
-					<div class="control-group">
-						<label class="control-label" for="cnpj_cpf_sacado">C.N.P.J./C.P.F.</label>
-						<div class="controls">
-							<input class="input-large" id="cnpj_cpf_sacado" size="16" type="text" name="cnpj_cpf_sacado">
-						</div>
-					</div>
-
-					<div class="control-group">
-						<label class="control-label" for="inscricao_estadual_sacado">Inscrição Estadual</label>
-						<div class="controls">
-							<input class="input-medium" id="inscricao_estadual_sacado" size="16" type="text" name="inscricao_estadual_sacado">
+							<?= $this->form->descricao_servico ?>
 						</div>
 					</div>
 				</fieldset>
@@ -145,58 +266,70 @@
 		</div>
 	</div>
 
+
 	<div class="span12">
 		<div class="widget widget-table" align='center'>
 			<div class="widget-header">
 				<h3>
 					<i class="icon-list-alt"></i>
-					Itens da Fatura
+					Preço & Observação
 			    </h3>
 			</div>
 			<div class="widget-content">
 				<table class="table table-bordered table-striped">
 					<thead>
 						<tr>
-							<th width="3%"><div align='center'>#</div></th>
-							<th width="45%">Serviço Executado</th>
-							<th width="10%">Data</th>
-							<th width="15%">Nota Fiscal</th>
-							<th width="14%">Valor</th>
-							<th width="8%">Ação</th>
+							<th>Frete</th>
+							<th>Seguro</th>
+							<th>Imposto</th>
+							<th>Valor Total</th>
 						</tr>
 					</thead>
-					<tbody id='listaServicos'>
-						<tr rel='1'>
-							<td><div align='center'>1</div></td>
-							<td><input class="input-xxlarge" id="descricao_servico_1" size="16" type="text" name="descricao_servico[]"></td>
-							<td><input class="input-small" id="data_servico_1" size="16" type="text" name="data_servico[]"></td>
-							<td><input class="input-small" id="nota_servico_1" size="16" type="text" name="nota_servico[]"></td>
+					<tbody>
+						<tr>
 							<td>
 								<div class="input-prepend input-append">
-									<span class="add-on">R$</span><input class="input-small" id="valor_servico_1" size="16" type="text" name="valor_servico[]">
+									<span class="add-on">R$</span><?= $this->form->valor_frete ?>
 								</div>
 							</td>
 							<td>
-								<button type="button" class="btn btn-primary btn-mini adicionarLinha">
-									<i class="icon-plus"></i>
-								</button>
-								<button type="button" class="btn btn-danger btn-mini removerLinha">
-									<i class="icon-remove"></i>
-								</button>
+								<div class="input-prepend input-append">
+									<span class="add-on">R$</span><?= $this->form->valor_seguro ?>
+								</div>
+							</td>
+							<td>
+								<div class="input-prepend input-append">
+									<span class="add-on">R$</span><?= $this->form->valor_imposto ?>
+								</div>
+							</td>
+							<td>
+								<div class="input-prepend input-append">
+									<span class="add-on">R$</span><input class="input-medium" id="valor_total" size="16" type="text" name="valor_total">
+								</div>
 							</td>
 						</tr>
 					</tbody>
-					<tfoot>
-						<tr>
-							<td></td>
-							<td></td>
-							<td colspan='2'><div align='right'>Valor Total</div></td>
-							<td><div align='right'><span id="valorTotalServicos"></span></div></td>
-							<td></td>
-						</tr>
-					</tfoot>
 				</table>
 			</div>
+		</div>
+	</div>
+
+	<!-- OBSERVAÇÃO -->
+	<div class="span12">
+		<div id="validation" class="widget highlight widget-form">
+			<div class="widget-header">
+				<h3>
+					<i class="icon-comment"></i>
+					Observação
+			    </h3>
+			</div>
+			<div class="widget-content">
+				<fieldset>
+					<div class="control-group">
+						<?= $this->form->observacao ?>
+					</div>
+				</fieldset>
+			</div> <!-- /widget-content -->
 		</div>
 	</div>
 
@@ -209,15 +342,11 @@
 			    </h3>
 			</div>
 			<div class="widget-content">
-				<button type="submit" class="btn btn-primary btn-large" onClick='gerarFatura();'>
+				<button type="submit" class="btn btn-primary btn-large">
 					<i class="icon-file"></i>
-					Gerar Fatura
+					Salvar Orçamento
 				</button>
-				<button type="submit" class="btn btn-secondary btn-large gerarDuplicata">
-					<i class="icon-file"></i>
-					Gerar Duplicata
-				</button>
-				<button type="reset" class="btn btn-large">
+				<button type="reset" class="btn btn-large btn-danger">
 					<i class="icon-remove"></i>
 					Cancelar
 				</button>

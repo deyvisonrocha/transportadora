@@ -12,7 +12,7 @@
 		    </h3>
 		    <div class="widget-actions">
 				<div class="btn-group">
-                    <a class="btn btn-medium" href="<?php print $this->url(array('controller' => 'ordem-servico', 'action' => 'form'), null, true); ?>">
+                    <a class="btn btn-medium" href="<?= $this->url(array('controller' => 'ordem-servico', 'action' => 'form'), null, true); ?>">
                         <i class="icon-plus"></i>
                         Cadastrar
                     </a>
@@ -27,32 +27,44 @@
 					<tr>
 						<th width="5%"><div align='center'>#</div></th>
 						<th width="40%">Cliente</th>
-						<th>Data de Emissão</th>
-						<th>Data de Vencimento</th>
-						<th>Nota Fiscal</th>
-						<th>Valor</th>
+						<th>Data de Execucao</th>
 						<th>Ação</th>
 					</tr>
 				</thead>
 				<tbody>
+					<?php
+					if (count($this->dados) > 0) :
+						foreach ($this->dados as $valor):
+					?>
 					<tr>
-						<td>1</td>
-						<td>Deyvison Rocha</td>
-						<td>31/07/2012</td>
-						<td>10/08/2012</td>
-						<td>123456-5</td>
-						<td>R$ 5.350,00</td>
+						<td><div align='center'><?php print $valor['id_fatura'] ?></div></td>
+						<td><?= $valor['razao_social'] ?></td>
+						<td><?= Funcoes::formataData($valor['emissao']) ?></td>
 						<td>
-							<a href="" class="btn btn-primary btn-mini">
-								<i class="icon-pencil"></i>
+							<a href="<?= $this->url(array('controller' => 'ordem-servico', 'action' => 'form', 'id' => $valor['id_ordem_servico']),null,true); ?>" class="btn btn-primary btn-mini" target="_blank">
+								<i class="icon-print"></i>
 								Editar
 							</a>
-							<a href="" class="btn btn-danger btn-mini">
+							<a href="<?= $this->url(array('controller' => 'ordem-servico', 'action' => 'excluir', 'id' => $valor['id_ordem_servico']),null,true); ?>" class="btn btn-danger btn-mini" target="_blank">
 								<i class="icon-trash"></i>
 								Excluir
 							</a>
 						</td>
 					</tr>
+					<?php
+						endforeach;
+					else:
+					?>
+					<tr>
+						<td colspan='7'>
+							<div align='center'>
+								Não foi encontrada nenhuma Ordem de Serviço cadastrada.
+							</div>
+						</td>
+					</tr>
+					<?
+					endif;
+					?>
 				</tbody>
 				<tfoot>
 				</tfoot>

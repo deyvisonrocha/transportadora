@@ -46,15 +46,15 @@
 						<td><?php print $valor['numero_fatura'] ?></td>
 						<td>R$ <?php print Funcoes::formataValor($valor['valor_total']) ?></td>
 						<td>
-							<a href="<?php print $this->url(array('controller' => 'fatura', 'action' => 'imprimir', 'id' => $valor['id_fatura']),null,true); ?>" class="btn btn-primary btn-mini">
+							<a href="<?php print $this->url(array('controller' => 'fatura', 'action' => 'imprimir', 'id' => $valor['id_fatura']),null,true); ?>" class="btn btn-primary btn-mini" target="_blank">
 								<i class="icon-print"></i>
 								Fatura
 							</a>
-							<a href="<?php print $this->url(array('controller' => 'fatura', 'action' => 'imprimir', 'id' => $valor['id_fatura'], 'duplicata' => 'sim'),null,true); ?>" class="btn btn-secondary btn-mini">
+							<a href="<?php print $this->url(array('controller' => 'fatura', 'action' => 'imprimir', 'id' => $valor['id_fatura'], 'duplicata' => 'sim'),null,true); ?>" class="btn btn-secondary btn-mini" target="_blank">
 								<i class="icon-print"></i>
 								Duplicata
 							</a>
-							<a href="<?php print $this->url(array('controller' => 'fatura', 'action' => 'excluir', 'id' => $valor['id_fatura']),null,true); ?>" class="btn btn-danger btn-mini">
+							<a href="<?php print $this->url(array('controller' => 'fatura', 'action' => 'excluir', 'id' => $valor['id_fatura']),null,true); ?>" class="btn btn-danger btn-mini" target="_blank">
 								<i class="icon-trash"></i>
 								Excluir
 							</a>

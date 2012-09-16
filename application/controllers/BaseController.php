@@ -27,4 +27,9 @@ class BaseController extends Zend_Controller_Action {
 		return true;
 	}
 
+	public function buscarCliente($query) {
+		$cliente = new ModeloCliente();
+		return $cliente->buscar($query);
+	}
+
 }

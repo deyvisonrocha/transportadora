@@ -42,14 +42,21 @@
 				$controller = $request->getControllerName();
 				$action = $request->getActionName();
 				?>
-				<li class="nav-icon <?php print ($action == "index" && $controller == "index" ? 'active' : ''); ?>">
+				<li class="nav-icon <?php print ($controller == "index" ? 'active' : ''); ?>">
 					<a href="<?php print $this->url(array("controller" => 'index'), null, true) ?>">
 						<i class="icon-home"></i>
 						Página Inicial
 					</a>
 				</li>
 
-				<li class="nav-icon <?php print ($action == "index" && $controller == "ordem-servico" ? 'active' : ''); ?>">
+				<li class="nav-icon <?php print ($controller == "cliente" ? 'active' : ''); ?>">
+					<a href="<?php print $this->url(array("controller" => 'cliente'), null, true) ?>">
+						<i class="icon-user"></i>
+						Clientes
+					</a>
+				</li>
+
+				<li class="nav-icon <?php print ($controller == "ordem-servico" ? 'active' : ''); ?>">
 					<a href="<?php print $this->url(array("controller" => 'ordem-servico'), null, true) ?>">
 						<i class="icon-wrench"></i>
 						Ordem de Serviço
