@@ -9,7 +9,7 @@ class FormCliente extends Zend_Form {
 		$razao_social = $this->createElement('text', 'razao_social');
 		$razao_social	->setRequired(true)
 						->setAttrib('id', 'razao_social')
-						->setAttrib('placeholder', 'Razão Social / Nome')
+						->setAttrib('placeholder', 'Nome Completo')
 						->removeDecorator('HtmlTag')
 						->removeDecorator('label');
 		$this->addElement($razao_social);
@@ -33,7 +33,7 @@ class FormCliente extends Zend_Form {
 		$cpf_cnpj = $this->createElement('text', 'cpf_cnpj');
 		$cpf_cnpj	->setRequired(true)
 					->setAttrib('id', 'cpf_cnpj')
-					->setAttrib('placeholder', 'CPF/CNPJ')
+					->setAttrib('placeholder', 'CPF')
 					->removeDecorator('HtmlTag')
 					->removeDecorator('label');
 		$this->addElement($cpf_cnpj);

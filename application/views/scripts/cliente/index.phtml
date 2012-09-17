@@ -26,11 +26,12 @@
 				<thead>
 					<tr>
 						<th width="5%"><div align='center'>#</div></th>
-						<th width="40%">Razão Social / Nome Fantasia</th>
-						<th>Contato</th>
+						<th width="30%">Razão Social / Nome Fantasia</th>
+						<th>Tipo Cliente</th>
+						<th>CPF/CNPJ</th>
 						<th>Telefone</th>
 						<th>E-mail</th>
-						<th>Ação</th>
+						<th width="13%">Ação</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -41,7 +42,8 @@
 					<tr>
 						<td><div align='center'><?= $valor['id_cliente'] ?></div></td>
 						<td><?= $valor['razao_social'] ?></td>
-						<td><?= $valor['contato'] ?></td>
+						<td><?= $valor['tipo_cliente'] ?></td>
+						<td><?= $valor['cpf_cnpj'] ?></td>
 						<td><?= $valor['telefone1'] ?></td>
 						<td><?= $valor['email'] ?></td>
 						<td>

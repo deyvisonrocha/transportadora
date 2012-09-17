@@ -26,7 +26,7 @@ class ClienteController extends BaseController {
 					// Alterar
 					try {
 						$this->modeloCliente->alterar($dados);
-						$this->_redirect('cliente');
+						$this->_redirect($this->getRequest()->getControllerName());
 					} catch (Exception $e) {
 						print $e->getMessage();
 						exit;
@@ -34,8 +34,10 @@ class ClienteController extends BaseController {
 				} else {
 					// Cadastrar
 					try {
+						// Data de Cadastro
+						$dados['data_cadastro'] = date('Y-m-d');
 						$this->modeloCliente->insert($dados);
-						$this->_redirect('cliente');
+						$this->_redirect($this->getRequest()->getControllerName());
 					} catch (Exception $e) {
 						print $e->getMessage();
 						exit;
@@ -51,4 +53,15 @@ class ClienteController extends BaseController {
 		}
 		$this->view->form = $form;
 	}
+
+	public function excluirAction() {
+        $id = $this->getRequest()->getParam('id');
+        try {
+            $this->modeloCliente->delete('id_cliente = '.$id);
+            $this->_redirect($this->getRequest()->getControllerName());
+        } catch (Exception $e) {
+            print $e;
+            exit;
+        }
+    }
 }

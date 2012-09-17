@@ -1,6 +1,26 @@
 <script type="text/javascript">
 	$(function () {
-		
+		$("#tipo_cliente").change(function () {
+			var elemento = $(this);
+			var valor = elemento.val();
+			if (valor == "PJ") {
+				$(".pj").show();
+				$(".pf").hide();
+				$("label[for=razao_social]").text('Razão Social');
+				$("input[name=razao_social]").attr('placeholder', 'Razão Social');
+				$("input[name=cpf_cnpj]").attr('placeholder', 'CNPJ');
+				$("label[for=cpf_cnpj]").text('CNPJ');
+			} else {
+				$(".pj").hide();
+				$(".pf").show();
+				$("label[for=razao_social]").text('Nome Completo');
+				$("input[name=razao_social]").attr('placeholder', 'Nome Completo');
+				$("input[name=cpf_cnpj]").attr('placeholder', 'CPF');
+				$("label[for=cpf_cnpj]").text('CPF');
+			}
+		});
+
+		$(".pj").hide(); // pessoa física como default
 	});
 </script>
 
@@ -27,27 +47,27 @@
 					</div>
 
 					<div class="control-group">
-						<label class="control-label" for="cpf_cnpj">CNPJ/CPF</label>
+						<label class="control-label" for="cpf_cnpj">CPF</label>
 						<div class="controls">
 							<?= $this->form->cpf_cnpj ?>
 						</div>
 					</div>
 
 					<div class="control-group">
-						<label class="control-label" for="razao_social">Razão Social / Nome</label>
+						<label class="control-label" for="razao_social">Nome Completo</label>
 						<div class="controls">
 							<?= $this->form->razao_social ?>
 						</div>
 					</div>
 
-					<div class="control-group">
+					<div class="control-group pj">
 						<label class="control-label" for="nome_fantasia">Nome Fantasia</label>
 						<div class="controls">
 							<?= $this->form->nome_fantasia ?>
 						</div>
 					</div>
 
-					<div class="control-group">
+					<div class="control-group pj">
 						<label class="control-label" for="contato">Contato</label>
 						<div class="controls">
 							<?= $this->form->contato ?>
@@ -82,13 +102,33 @@
 						</div>
 					</div>
 
+					<div class="control-group pf">
+						<label class="control-label" for="sexo">Sexo</label>
+						<div class="controls">
+							<?= $this->form->sexo ?>
+						</div>
+					</div>
+
+					<div class="control-group pj">
+						<label class="control-label" for="inscricao_estadual">Inscrição Estadual</label>
+						<div class="controls">
+							<?= $this->form->inscricao_estadual ?>
+						</div>
+					</div>
+
+					<div class="control-group pj">
+						<label class="control-label" for="inscricao_municipal">Inscrição Municipal</label>
+						<div class="controls">
+							<?= $this->form->inscricao_municipal ?>
+						</div>
+					</div>
+
 					<div class="control-group">
 						<label class="control-label" for="ativo">Ativo</label>
 						<div class="controls">
 							<?= $this->form->ativo ?>
 						</div>
 					</div>
-
 				</fieldset>
 			</div> <!-- /widget-content -->
 		</div>
