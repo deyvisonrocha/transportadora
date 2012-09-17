@@ -1,5 +1,5 @@
 <div class="span12">
-	<h3>Ordem de Serviço</h3>
+	<h3>Clientes</h3>
 
 </div>
 
@@ -12,7 +12,7 @@
 		    </h3>
 		    <div class="widget-actions">
 				<div class="btn-group">
-                    <a class="btn btn-medium" href="<?= $this->url(array('controller' => 'ordem-servico', 'action' => 'form'), null, true); ?>">
+                    <a class="btn btn-medium" href="<?= $this->url(array('controller' => 'cliente', 'action' => 'form'), null, true); ?>">
                         <i class="icon-plus"></i>
                         Cadastrar
                     </a>
@@ -26,8 +26,10 @@
 				<thead>
 					<tr>
 						<th width="5%"><div align='center'>#</div></th>
-						<th width="40%">Cliente</th>
-						<th>Data de Execucao</th>
+						<th width="40%">Razão Social / Nome Fantasia</th>
+						<th>Contato</th>
+						<th>Telefone</th>
+						<th>E-mail</th>
 						<th>Ação</th>
 					</tr>
 				</thead>
@@ -37,15 +39,17 @@
 						foreach ($this->dados as $valor):
 					?>
 					<tr>
-						<td><div align='center'><?= $valor['id_fatura'] ?></div></td>
+						<td><div align='center'><?= $valor['id_cliente'] ?></div></td>
 						<td><?= $valor['razao_social'] ?></td>
-						<td><?= Funcoes::formataData($valor['emissao']) ?></td>
+						<td><?= $valor['contato'] ?></td>
+						<td><?= $valor['telefone1'] ?></td>
+						<td><?= $valor['email'] ?></td>
 						<td>
-							<a href="<?= $this->url(array('controller' => 'ordem-servico', 'action' => 'form', 'id' => $valor['id_ordem_servico']),null,true); ?>" class="btn btn-primary btn-mini" target="_blank">
+							<a href="<?= $this->url(array('controller' => 'cliente', 'action' => 'form', 'id' => $valor['id_cliente']),null,true); ?>" class="btn btn-primary btn-mini">
 								<i class="icon-print"></i>
 								Editar
 							</a>
-							<a href="<?= $this->url(array('controller' => 'ordem-servico', 'action' => 'excluir', 'id' => $valor['id_ordem_servico']),null,true); ?>" class="btn btn-danger btn-mini" target="_blank">
+							<a href="<?= $this->url(array('controller' => 'cliente', 'action' => 'excluir', 'id' => $valor['id_cliente']),null,true); ?>" class="btn btn-danger btn-mini">
 								<i class="icon-trash"></i>
 								Excluir
 							</a>
@@ -58,7 +62,7 @@
 					<tr>
 						<td colspan='7'>
 							<div align='center'>
-								Não foi encontrada nenhuma Ordem de Serviço cadastrada.
+								Não foi encontrado nenhum cliente cadastrado.
 							</div>
 						</td>
 					</tr>

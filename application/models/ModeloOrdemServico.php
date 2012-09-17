@@ -26,7 +26,7 @@ class ModeloOrdemServico extends ModeloAbstrato {
 		$db = $this->_db;
 		$select = $db->select();
 		$select ->from(array('tbos' => $this->_name), array('id_ordem_servico', 'data_execucao as emissao'))
-				->joinLeft(array('tbc' => 'tb_cliente'), 'tbos.id_cliente = tbc.id_cliente', array('razao_social'))
+				->joinLeft(array('tbc' => 'tb_cliente'), 'tbos.id_cliente_origem = tbc.id_cliente', array('razao_social'))
 				->group('id_ordem_servico')
 				->order('id_ordem_servico DESC');
 		return $db->fetchAll($select);
