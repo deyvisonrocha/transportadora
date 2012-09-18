@@ -6,13 +6,6 @@
 		// dados da fatura
 		$("input[name*=valor], input[name*=desconto]").setMask('decimal', {placeholder: " "});
 
-		var clientes = [
-			"04842255455",
-			"05292438499",
-			"12345678910",
-			"02255544711"
-		];
-
 		// autocomplete
 		$("#destino_cpf_cnpj").autocomplete(
 			{
@@ -22,14 +15,9 @@
 				select: function (event, ui) {
 					$("#id_cliente_destino").val(ui.item.id_cliente);
 					$("#destino_razao_social").val(ui.item.razao_social);
-					// se tiver complemento
-					var complemento = '';
-					if (ui.item.complemento != null) {
-						complemento = ', '+ui.item.complemento;
-					}
 					$("#destino_endereco").val(ui.item.endereco);
 					$("#destino_numero").val(ui.item.numero);
-					$("#destino_complemento").val(complemento);
+					$("#destino_complemento").val(ui.item.complemento);
 					$("#destino_bairro").val(ui.item.bairro);
 					$("#destino_cidade").val(ui.item.cidade);
 					$("#destino_uf").val(ui.item.uf);
@@ -46,18 +34,11 @@
 				selectFirst: true,
 				source: urlSite + "/ordem-servico/buscar-cliente",
 				select: function (event, ui) {
-					console.log(event);
-					console.log(ui);
 					$("#id_cliente_origem").val(ui.item.id_cliente);
 					$("#origem_razao_social").val(ui.item.razao_social);
-					// se tiver complemento
-					var complemento = '';
-					if (ui.item.complemento != null) {
-						complemento = ', '+ui.item.complemento;
-					}
 					$("#origem_endereco").val(ui.item.endereco);
 					$("#origem_numero").val(ui.item.numero);
-					$("#origem_complemento").val(complemento);
+					$("#origem_complemento").val(ui.item.complemento);
 					$("#origem_bairro").val(ui.item.bairro);
 					$("#origem_cidade").val(ui.item.cidade);
 					$("#origem_uf").val(ui.item.uf);
@@ -71,7 +52,7 @@
 </script>
 
 <form action="<?= $this->form->getAction() ?>" id="formulario-fatura" class="form-horizontal" novalidate="novalidate" method="<?= $this->form->getMethod() ?>">
-
+	<?= $this->form->id_ordem_servico ?>
 	<!-- DADOS ORIGEM -->
 	<div class="span6">
 		<div id="validation" class="widget highlight widget-form">
@@ -83,7 +64,7 @@
 			</div>
 			<div class="widget-content">
 				<fieldset>
-					<input id="id_cliente" type="hidden" name="id_cliente_origem">
+					<?= $this->form->id_cliente_origem ?>
 					<div class="control-group">
 						<label class="control-label" for="origem_cpf_cnpj">CNPJ/CPF</label>
 						<div class="controls">
@@ -102,6 +83,27 @@
 						<label class="control-label" for="origem_endereco">Endereço</label>
 						<div class="controls">
 							<?= $this->form->origem_endereco ?>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="origem_numero">Número</label>
+						<div class="controls">
+							<?= $this->form->origem_numero ?>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="origem_complemento">Complemento</label>
+						<div class="controls">
+							<?= $this->form->origem_complemento ?>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="origem_bairro">Bairro</label>
+						<div class="controls">
+							<?= $this->form->origem_bairro ?>
 						</div>
 					</div>
 
@@ -148,11 +150,11 @@
 			</div>
 			<div class="widget-content">
 				<fieldset>
-					<input id="id_cliente" type="hidden" name="id_cliente_destino">
+					<?= $this->form->id_cliente_destino ?>
 					<div class="control-group">
 						<label class="control-label" for="destino_cpf_cnpj">CNPJ/CPF</label>
 						<div class="controls">
-							<?= $this->form->origem_cpf_cnpj ?>
+							<?= $this->form->destino_cpf_cnpj ?>
 						</div>
 					</div>
 
@@ -167,6 +169,27 @@
 						<label class="control-label" for="destino_endereco">Endereço</label>
 						<div class="controls">
 							<?= $this->form->destino_endereco ?>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="destino_numero">Número</label>
+						<div class="controls">
+							<?= $this->form->destino_numero ?>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="destino_complemento">Complemento</label>
+						<div class="controls">
+							<?= $this->form->destino_complemento ?>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="destino_bairro">Bairro</label>
+						<div class="controls">
+							<?= $this->form->destino_bairro ?>
 						</div>
 					</div>
 

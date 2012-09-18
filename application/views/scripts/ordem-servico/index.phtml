@@ -27,8 +27,10 @@
 					<tr>
 						<th width="5%"><div align='center'>#</div></th>
 						<th width="40%">Cliente</th>
+						<th>Serviço Executado</th>
 						<th>Data de Execucao</th>
-						<th>Ação</th>
+						<th>Valor Total</th>
+						<th width="18%">Ação</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -37,12 +39,22 @@
 						foreach ($this->dados as $valor):
 					?>
 					<tr>
-						<td><div align='center'><?= $valor['id_fatura'] ?></div></td>
+						<td><div align='center'><?= $valor['id_ordem_servico'] ?></div></td>
 						<td><?= $valor['razao_social'] ?></td>
+						<td><?= $valor['titulo_servico'] ?></td>
 						<td><?= Funcoes::formataData($valor['emissao']) ?></td>
 						<td>
-							<a href="<?= $this->url(array('controller' => 'ordem-servico', 'action' => 'form', 'id' => $valor['id_ordem_servico']),null,true); ?>" class="btn btn-primary btn-mini" target="_blank">
+							<div align="right">
+								R$ <?= Funcoes::formataValor($valor['valor_total']) ?>
+							</div>
+						</td>
+						<td>
+							<a href="<?= $this->url(array('controller' => 'ordem-servico', 'action' => 'imprimir', 'id' => $valor['id_ordem_servico']),null,true); ?>" class="btn btn-primary btn-mini">
 								<i class="icon-print"></i>
+								Imprimir
+							</a>
+							<a href="<?= $this->url(array('controller' => 'ordem-servico', 'action' => 'form', 'id' => $valor['id_ordem_servico']),null,true); ?>" class="btn btn-secundary btn-mini">
+								<i class="icon-edit"></i>
 								Editar
 							</a>
 							<a href="<?= $this->url(array('controller' => 'ordem-servico', 'action' => 'excluir', 'id' => $valor['id_ordem_servico']),null,true); ?>" class="btn btn-danger btn-mini" target="_blank">

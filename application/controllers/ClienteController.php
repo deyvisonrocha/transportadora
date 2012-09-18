@@ -49,6 +49,7 @@ class ClienteController extends BaseController {
 			if (isset($id) && $id > 0) {
 				$dados = $this->modeloCliente->fetchRow('id_cliente ='.$id)->toArray();
 				$form->populate($dados);
+				$this->view->id_cliente = $id;
 			}
 		}
 		$this->view->form = $form;

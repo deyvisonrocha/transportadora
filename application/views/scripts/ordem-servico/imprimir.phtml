@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf8">
+		<title>Impressão</title>
+		<style type="text/css" rel="stylesheet" href="reset.css"></style>
+		<style type="text/css">
+			body {
+				margin-left: 20px;
+				margin-top: 20px;
+			}
+			.pai {
+				border: 1px solid #000; 
+				border-collapse: collapse; 
+				padding:0;
+				margin:0;
+				width:793px;
+			}
+
+			.principal {
+				width: 793px;
+				border:1px solid #FFF;
+				border-collapse: collapse;
+			}
+			.principal h1 {
+				font-size: 24px;
+				padding:0px;
+				margin:0px;
+			}
+
+			.principal .topo {
+				padding:0px;
+				margin:0px;
+			}
+
+			.ordem_servico {
+				position: absolute;
+				top:0px; 
+				right:0px;
+				width:100px;
+				border-bottom:1px solid #000;
+				border-left:1px solid #000;
+				padding: 2px;
+			}
+
+			.borda-rodape {
+				border-bottom: 1px dotted #000;
+			}
+			.cabecalho {
+				position: relative;
+				padding:0px;
+				margin:0px;
+				font-size: 16px;
+			}
+
+		</style>
+	</head>
+	<body>
+
+		<div class="pai">
+			<table class="principal" border="1" cellpadding="0" cellspacing="0">
+				<!-- CABEÇALHO -->
+				<tr>
+					<td colspan="8" class="topo">
+						<div class="cabecalho" align="center">
+							<h1>TRANSROCHA SUAPE LOGÍSTICA LTDA.</h1>
+							Rua Serra da Canastra, 298 - 1º Andar - Sala 103 - Cordeiro - CEP 50640-310 - Recife - PE - Fone: (81) 4141.3900<br/>
+							C.N.P.J. 14.027.710/0001-10 - Insc. Estadual: 0450837-89<br/>
+							<strong>E-mail: transrochasuape@hotmail.com</strong>
+							<div class="ordem_servico">
+								O.S.: <?= $this->ordem_servico->id_ordem_servico ?>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr class="borda-rodape">
+					<td colspan="2">
+						<b>Data:</b> <?= Funcoes::formataData($this->ordem_servico->data_execucao) ?>
+					</td>
+					<td colspan="2">
+						<b>Início KM:</b> <?= $this->ordem_servico->km_inicial ?>
+					</td>
+					<td colspan="2">
+						<b>Término KM:</b> <?= $this->ordem_servico->km_final ?>
+					</td>
+					<td colspan="2">
+						<b>TOTAL:</b> <?= $this->ordem_servico->km_final + $this->ordem_servico->km_inicial ?>
+					</td>
+				</tr>
+				<!-- TOPO -->
+				<tr class="borda-rodape">
+					<td colspan="8" style="padding:2px;font-size: 14px">
+						<table border="0" cellpadding="0" cellspacing="2" width="100%">
+							<tr>
+								<td colspan="2" style="font-size: 16px"><b>2º ORIGEM / ORIGIN<b></td>
+								<td>
+									<b>Telefone/Phone:</b> <?= $this->ordem_servico->origem_fone?>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									Cliente/Client: <?= $this->ordem_servico->origem_razao_social ?>
+								</td>
+								<td>
+									CNPJ/CPF: <?= $this->ordem_servico->origem_cpf_cnpj ?>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									Endereço / Address: <?= $this->ordem_servico->origem_endereco ?>, <?= $this->ordem_servico->origem_numero ?> - <?= $this->ordem_servico->origem_complemento ?> 
+								</td>
+								<td width="32%">
+									Contato/Contact: <?= $this->ordem_servico->origem_contato ?>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Bairro: <?= $this->ordem_servico->origem_bairro ?>
+								</td>
+								<td>
+									Cidade / City: <?= $this->ordem_servico->origem_cidade ?>
+								</td>
+								<td>
+									UF: <?= $this->ordem_servico->origem_uf ?>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr class="borda-rodape">
+					<td colspan="8" style="padding:2px; font-size: 14px">
+						<table border="0" cellpadding="0" cellspacing="2" width="100%">
+							<tr>
+								<td colspan="2" style="font-size: 16px"><b>3º DESTINO / DESTINATION<b></td>
+								<td>
+									<b>Telefone/Phone:</b> <?= $this->ordem_servico->destino_fone?>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									Cliente/Client: <?= $this->ordem_servico->destino_razao_social ?>
+								</td>
+								<td>
+									CNPJ/CPF: <?= $this->ordem_servico->destino_cpf_cnpj ?>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									Endereço / Address: <?= $this->ordem_servico->destino_endereco ?>, <?= $this->ordem_servico->destino_numero ?> - <?= $this->ordem_servico->destino_complemento ?>
+								</td>
+								<td width="32%">
+									Contato/Contact: <?= $this->ordem_servico->destino_contato ?>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Bairro: <?= $this->ordem_servico->destino_bairro ?>
+								</td>
+								<td>
+									Cidade / City: <?= $this->ordem_servico->destino_cidade ?>
+								</td>
+								<td>
+									UF: <?= $this->ordem_servico->destino_uf ?>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+
+				<tr class="borda-rodape">
+					<td colspan="8" style="padding:2px">
+						<table border="0" cellpadding="0" cellspacing="2" width="100%">
+							<tr>
+								<td colspan="2">
+									<b>4º SERVIÇO A EXECUTAR / SERVICES TO BE MADE</b>
+									<?= $this->ordem_servico->titulo_servico ?>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+
+				<tr class="borda-rodape">
+					<td colspan="8" style="padding:2px;min-height:120px;height:120px" valign="top">
+						<table border="0" cellpadding="0" cellspacing="2" width="100%">
+							<tr>
+								<td>
+									<b>5º DESCRIÇÃO DOS SERVIÇOS ACERTADOS / DESCRIPTION OF ADJUSTED SERVICES</b>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<?= $this->ordem_servico->descricao_servico ?>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+
+				<tr class="borda-rodape">
+					<td colspan="8" style="padding:2px;min-height:100px;height:100px" valign="top">
+						<table border="0" cellpadding="0" cellspacing="2" width="100%">
+							<tr>
+								<td width="16%">
+									<b>6º PREÇO/PRICE</b>
+								</td>
+								<td style="font-size: 14px">
+									<b>Frete/Freight:</b> <?= Funcoes::formataValor($this->ordem_servico->valor_frete) ?>
+								</td>
+								<td style="font-size: 14px">
+									<b>Seguro/Insurance:</b> <?= Funcoes::formataValor($this->ordem_servico->valor_seguro) ?>
+								</td>
+								<td style="font-size: 14px">
+									<b>Imposto/Duties:</b> <?= Funcoes::formataValor($this->ordem_servico->valor_imposto) ?>
+								</td>
+								<td style="font-size: 14px">
+									<b>Valor Total:</b> <?= Funcoes::formataValor($this->ordem_servico->valor_total) ?>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+
+				<tr class="borda-rodape">
+					<td colspan="8" style="padding:2px;" valign="top">
+						<table border="0" cellpadding="0" cellspacing="2" width="100%">
+							<tr>
+								<td>
+									<b>7º OBSERVAÇÃO: TODOS OS SERVIÇOS DESTA O.S. SERÃO AVERBADOS PELO SEGURO RCTR-C</b>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+
+				<tr class="borda-rodape">
+					<td colspan="8" style="padding:2px;" valign="top">
+						<table border="0" cellpadding="0" cellspacing="2" width="100%">
+							<tr>
+								<td align="center">
+									<b>O PAGAMENTO DEPENDERÁ DA APROVAÇÃO DE CADA CADASTRO JUNTO A SERASA</b>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+
+				<tr class="borda-rodape">
+					<td colspan="8" style="padding:2px;" valign="top">
+						<table border="0" cellpadding="0" cellspacing="2" width="100%">
+							<tr>
+								<td colspan="8">
+									<b>8º QUITAÇÃO DOS SERVIÇOS - CONDIÇÕES DE TRANSPORTE</b>
+								</td>
+							</tr>
+							<tr>
+								<td style="padding-left: 15px;height: 65px" valign="top" colspan="8">
+									Declaro que recebi em boas condições os serviços acima dando sua quitação sem que nada tenha a reclamar a partir da presente data.
+									<em>I declare that i received in good conditions the service above without anything to claim from this date on.</em>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="4" align="center" style="font-size: 14px">
+									____________________________________<br/>
+									ASSINATURA / SIGNATURE
+								</td>
+								<td colspan="4" align="center" style="font-size: 14px">
+									____________________________________<br/>
+									NOME COMPLETO / FULL NAME
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+
+				<tr class="borda-rodape">
+					<td colspan="8" style="padding:2px;" valign="top">
+						<table border="0" cellpadding="0" cellspacing="2" width="100%">
+							<tr>
+								<td colspan="8">
+									<b>9º EQUIPE RESPONSÁVEL / RESPONSIBLE TEAM:</b>
+								</td>
+							</tr>
+							<tr>
+								<td style="font-size: 14px; height: 50px" colspan="3" align="center">
+									____________________________________<br/>
+									MOTORISTA / DRIVE
+								</td>
+								<td style="font-size: 14px" colspan="3" align="center">
+									____________________________________<br/>
+									1º AJUDANTE / 1st LOADER MAN
+								</td>
+								<td style="font-size: 14px" colspan="2" rowspan="2" align="left">
+									O Serviço foi/Service was:<br/>
+									(&nbsp;&nbsp;&nbsp;) BOM / GOOD<br/>
+									(&nbsp;&nbsp;&nbsp;) REGULAR / AIR<br/>
+									(&nbsp;&nbsp;&nbsp;) RUIM / BAD<br/>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="3" align="center" style="font-size: 14px">
+									____________________________________<br/>
+									2º AJUDANTE / 2nd LOADER MAN
+								</td>
+								<td colspan="3" align="center" style="font-size: 14px">
+									____________________________________<br/>
+									3º AJUDANTE / 3rd LOADER MAN
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+
+				<tr class="borda-rodape">
+					<td colspan="8" style="padding:2px;" valign="top">
+						<table border="0" cellpadding="0" cellspacing="2" width="100%">
+							<tr>
+								<td colspan="8">
+									<b>10º OBSERVAÇÕES GERAIS</b>
+								</td>
+							</tr>
+							<tr>
+								<td style="height:60px">
+									
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+
+				<tr class="borda-rodape">
+					<td colspan="8" style="padding:2px;" valign="top">
+						<table border="0" cellpadding="0" cellspacing="2" width="100%">
+							<tr>
+								<td colspan="8">
+									<b>ESTAMOS DE ACORDO COM O 1º AO 10º ITEM ___/___/_____</b>
+								</td>
+							</tr>
+							<tr style="font-size: 14px;height:80px">
+								<td colspan="3" align="center" valign="bottom">
+									____________________________________<br/>
+									NOME ASSINATURA/SIGNATURE
+								</td>
+								<td colspan="3" align="center" valign="bottom">
+									____________________________________<br/>
+									NOME COMPLETO
+								</td>
+								<td colspan="2" valign="bottom" align="right">
+									<b>RETORNAR POR FAX (81) 4141.3900
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</div>
+
+		<!-- FIM TOPO -->
+	</body>
+</html>

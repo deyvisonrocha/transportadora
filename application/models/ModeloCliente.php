@@ -37,4 +37,10 @@ class ModeloCliente extends ModeloAbstrato {
 	public function buscar($cpf_cnpj) {
 		return $this->fetchAll('cpf_cnpj LIKE "%'.$cpf_cnpj.'%"', 'cpf_cnpj ASC');
 	}
+
+	public function alterar($dados) {
+		$id_cliente = $dados['id_cliente'];
+		unset($dados['id_cliente']);
+		return $this->update($dados, 'id_cliente = '.$id_cliente);
+	}
 }
