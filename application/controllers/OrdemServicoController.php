@@ -4,14 +4,12 @@ class OrdemServicoController extends BaseController {
     /**
      * Atributos
      */
-    private $form;
     private $modeloCliente;
     private $modeloOrdemServico;
 
 	public function init() {
 		parent::init();
         $this->modeloOrdemServico = new ModeloOrdemServico();
-        $this->form = new FormOrdemServico();
 	}
     public function indexAction() {
         // Lista
@@ -19,7 +17,7 @@ class OrdemServicoController extends BaseController {
     }
 
     public function formAction() {
-        $form = $this->form;
+        $form = new FormOrdemServico();
         $form->setAction($this->getBaseUrl()."/".$this->getRequest()->getControllerName()."/".$this->getRequest()->getActionName());
         // Form de Inserção
         if ($this->getRequest()->isPost()) {
