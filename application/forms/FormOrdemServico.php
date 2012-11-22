@@ -125,12 +125,16 @@ class FormOrdemServico extends Zend_Form {
 		$this->addElement($origem_contato);
 
 		// origem_uf
-		$origem_uf = $this->createElement('text', 'origem_uf');
+		$origem_uf = $this->createElement('select', 'origem_uf');
 		$origem_uf	->setRequired(false)
 					->setAttrib('id', 'origem_uf')
-					->setAttrib('class', 'input-small')
+					->setAttrib('class', 'input-large')
 					->removeDecorator('HtmlTag')
-					->removeDecorator('label');
+					->removeDecorator('label')
+					->setRegisterInArrayValidator(false);
+		$ufs = new ModeloEstados();
+		$opts = $ufs->retornarSiglaDescricao();
+		$origem_uf  ->setMultiOptions($opts);
 		$this->addElement($origem_uf);
 
 		// origem_fone
@@ -205,12 +209,14 @@ class FormOrdemServico extends Zend_Form {
 		$this->addElement($destino_cidade);
 
 		// destino_uf
-		$destino_uf = $this->createElement('text', 'destino_uf');
+		$destino_uf = $this->createElement('select', 'destino_uf');
 		$destino_uf	->setRequired(false)
 						->setAttrib('id', 'destino_uf')
-						->setAttrib('class', 'input-small')
+						->setAttrib('class', 'input-large')
 						->removeDecorator('HtmlTag')
-						->removeDecorator('label');
+						->removeDecorator('label')
+						->setRegisterInArrayValidator(false);
+		$destino_uf ->setMultiOptions($opts);
 		$this->addElement($destino_uf);
 
 		// destino_contato

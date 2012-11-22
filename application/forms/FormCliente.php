@@ -81,7 +81,7 @@ class FormCliente extends Zend_Form {
 		$uf = $this->createElement('select', 'uf');
 		$uf	->setRequired(false)
 			->setAttrib('id', 'uf')
-			->setAttrib('class', 'input-large	')
+			->setAttrib('class', 'input-large')
 			->removeDecorator('HtmlTag')
 			->removeDecorator('label')
 			->setRegisterInArrayValidator(false);
