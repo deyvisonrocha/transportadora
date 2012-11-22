@@ -53,9 +53,9 @@ $frontController->throwExceptions(true);
  * Estão no arquivo config.ini na seção database.
  */
 if($_SERVER['SERVER_NAME'] ==  'localhost'){
-	$config = new Zend_Config_Ini('./application/configs/config.ini', 'dev');
+	$config = new Zend_Config_Ini('./application/configs/application.ini', 'dev');
 }else{
-	$config = new Zend_Config_Ini('./application/configs/config.ini', 'producao');
+	$config = new Zend_Config_Ini('./application/configs/application.ini', 'producao');
 }
 /** Registra na memória a variável config */
 Zend_Registry::set('config', $config);
