@@ -81,10 +81,15 @@ class FormCliente extends Zend_Form {
 		$uf = $this->createElement('select', 'uf');
 		$uf	->setRequired(false)
 			->setAttrib('id', 'uf')
-			->addMultiOptions(array('PE' => "Pernambuco", 'PB' => "Paraíba"))
+			->setAttrib('class', 'input-large	')
 			->removeDecorator('HtmlTag')
-			->removeDecorator('label');
+			->removeDecorator('label')
+			->setRegisterInArrayValidator(false);
+		$ufs = new ModeloEstados();
+		$opts = $ufs->retornarSiglaDescricao();
+		$uf ->setMultiOptions($opts);
 		$this->addElement($uf);
+		
 		// cep
 		$cep = $this->createElement('text', 'cep');
 		$cep->setRequired(true)

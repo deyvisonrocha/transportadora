@@ -10,6 +10,7 @@
 				$("input[name=razao_social]").attr('placeholder', 'Razão Social');
 				$("input[name=cpf_cnpj]").attr('placeholder', 'CNPJ');
 				$("label[for=cpf_cnpj]").text('CNPJ');
+				$("#cpf_cnpj").setMask('99.999.999/9999-99');
 			} else {
 				$(".pj").hide();
 				$(".pf").show();
@@ -17,6 +18,7 @@
 				$("input[name=razao_social]").attr('placeholder', 'Nome Completo');
 				$("input[name=cpf_cnpj]").attr('placeholder', 'CPF');
 				$("label[for=cpf_cnpj]").text('CPF');
+				$("#cpf_cnpj").setMask('999.999.999-99');
 			}
 		});
 
