@@ -6,7 +6,7 @@ if($_SERVER['SERVER_NAME'] ==  'localhost'){
 	ini_set('display_errors', 'off');
 }
 set_include_path(
-PATH_SEPARATOR . '../library' .
+PATH_SEPARATOR . './application/library' .
 PATH_SEPARATOR . './application/class' .
 PATH_SEPARATOR . './application/exceptions' .
 PATH_SEPARATOR . './application/models' .
