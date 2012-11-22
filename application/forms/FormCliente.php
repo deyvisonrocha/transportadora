@@ -1,7 +1,6 @@
 <?php
 class FormCliente extends Zend_Form {
 
-
 	public function init() {
 		parent::init();
 
