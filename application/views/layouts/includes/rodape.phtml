@@ -14,3 +14,17 @@
 	</div> <!-- /.container -->
 
 </div> <!-- /#footer -->
+
+<script type="text/javascript">
+	$(function () {
+
+		$(".btnExcluir").live('click', function () {
+			if(confirm('Você deseja realmente excluir este item?')) {
+				return true;
+			} else {
+				return false;
+			}
+		});
+		
+	});
+</script>
