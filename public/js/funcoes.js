@@ -30,6 +30,11 @@ $(function () {
 		});
 	}
 	
+	$(".btnCancelarForm").click(function (e) {
+		e.preventDefault();
+		history.go(-1);
+	});
+	
 });
 
 function moeda(valor, casas, separdor_decimal, separador_milhar){

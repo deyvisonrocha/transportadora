@@ -48,6 +48,25 @@
 				}
 			}
 		);
+
+		$("input[name*=valor_]").live('blur',function () {
+			if ($(this).attr('name') != 'valor_total') {
+				$("#valor_total").val(0);
+				$("#valor_total").val(somarValores());
+			}
+		});
+
+		function somarValores() {
+			var valor = 0;
+			$("input[name*=valor_]").each( function (i) {
+				var valor_formatado = $(this).val().replace('.','');
+				valor_formatado = valor_formatado.replace('.','');
+				valor_formatado = valor_formatado.replace(',','.');
+				valor = eval(parseFloat(valor_formatado) + valor);
+			});
+			valor = moeda(valor,2,',','.') ;
+			return valor;
+		}
 	});
 </script>
 
@@ -327,7 +346,7 @@
 							</td>
 							<td>
 								<div class="input-prepend input-append">
-									<span class="add-on">R$</span><input class="input-medium" id="valor_total" size="16" type="text" name="valor_total">
+									<span class="add-on">R$</span><?= $this->form->valor_total ?>
 								</div>
 							</td>
 						</tr>
@@ -369,7 +388,7 @@
 					<i class="icon-file"></i>
 					Salvar O.S.
 				</button>
-				<button type="reset" class="btn btn-large btn-danger">
+				<button type="reset" class="btn btn-small pull-right btnCancelarForm">
 					<i class="icon-remove"></i>
 					Cancelar
 				</button>
